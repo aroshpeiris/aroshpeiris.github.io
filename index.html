@@ -1,14 +1,97 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arosh Peiris | Creative Portfolio</title>
+    <title>Arosh Peiris | Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0f;
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #00f0ff;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: #88888e;
+            text-transform: uppercase;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #00f0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 0.9rem; letter-spacing: 2px; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Arosh Peiris</h1>
-    <h2>VIDEO EDITOR | GRAPHIC DESIGNER | JUNIOR MARKETING</h2>
-    <p>Welcome to my creative portfolio.</p>
+
+    <header>
+        <div class="badge">Creative Studio Portfolio</div>
+        <h1>Arosh Peiris</h1>
+        <h2>Video Editor | Graphic Designer | Junior Marketing</h2>
+        <a href="#projects" class="btn">Explore Work</a>
+    </header>
+
 </body>
 </html>
