@@ -3,187 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arosh Peiris | Portfolio</title>
-    <!-- Simple Icons for Tool Logos -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Arosh Peiris | Creative Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --yellow: #FFD60A;
+            --dark: #0B0B0B;
+            --card: #161616;
+            --light: #F5F5F5;
         }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: #0d0d0f;
-            color: #ffffff;
-            line-height: 1.6;
-            padding: 0 20px 60px;
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--light);
         }
 
-        header {
-            min-height: 80vh;
+        /* ---------- INTRO ---------- */
+        .intro {
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 20px;
+            padding: 24px;
         }
+        .intro h1 { font-size: 3rem; font-weight: 800; color: var(--yellow); }
+        .intro h2 { font-size: 1rem; font-weight: 600; letter-spacing: 2px; margin: 12px 0; }
+        .intro p  { font-weight: 300; opacity: 0.8; }
 
-        .badge {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #00f0ff;
-            margin-bottom: 20px;
+        /* ---------- PROJECTS ---------- */
+        .projects { padding: 60px 24px; max-width: 1100px; margin: 0 auto; }
+        .projects h3 {
+            font-size: 2rem; font-weight: 700;
+            text-align: center; margin-bottom: 40px;
         }
+        .projects h3 span { color: var(--yellow); }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #ffffff 0%, #a1a1a1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        h2 {
-            font-size: 1.1rem;
-            font-weight: 400;
-            letter-spacing: 3px;
-            color: #88888e;
-            text-transform: uppercase;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background: #ffffff;
-            color: #000000;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #00f0ff;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
-        }
-
-        /* --- SKILLS SECTION --- */
-        .skills-section {
-            max-width: 1000px;
-            margin: 0 auto 80px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            color: #ffffff;
-        }
-
-        .skills-grid {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
         }
 
-        .skill-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .card {
+            display: block;
+            text-decoration: none;
+            color: var(--light);
+            background: var(--card);
+            border: 2px solid transparent;
             border-radius: 16px;
-            padding: 25px 15px;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
+            padding: 28px;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeUp 0.8s ease both;
         }
+        .card:nth-child(2) { animation-delay: 0.15s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
 
-        .skill-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: #00f0ff;
-            transform: translateY(-5px);
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--yellow);
+            box-shadow: 0 12px 30px rgba(255, 214, 10, 0.25);
         }
-
-        .skill-badge {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: #fff;
+        .card .tag {
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;
+            color: var(--dark); background: var(--yellow);
+            padding: 4px 10px; border-radius: 20px;
+            display: inline-block; margin-bottom: 16px;
         }
-
-        /* Specific Brand Colors */
-        .pr { background: #9999FF; color: #00005B; }
-        .ae { background: #9999FF; color: #00005B; }
-        .ps { background: #31A8FF; color: #001E36; }
-        .ai { background: #FF9A00; color: #330000; }
-        .cc { background: #ffffff; color: #000000; }
-
-        .skill-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #d1d1d6;
+        .card h4 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .card p  { font-weight: 300; opacity: 0.75; font-size: 0.9rem; }
+        .card .arrow {
+            display: inline-block; margin-top: 18px;
+            color: var(--yellow); font-weight: 600;
+            transition: transform 0.3s ease;
         }
+        .card:hover .arrow { transform: translateX(8px); }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 0.9rem; letter-spacing: 2px; }
-            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="badge">Creative Studio Portfolio</div>
+    <section class="intro">
         <h1>Arosh Peiris</h1>
-        <h2>Video Editor | Graphic Designer | Junior Marketing</h2>
-        <a href="#skills" class="btn">Explore Work</a>
-    </header>
+        <h2>VIDEO EDITOR | GRAPHIC DESIGNER | JUNIOR MARKETING</h2>
+        <p>Welcome to my creative portfolio.</p>
+    </section>
 
-    <section id="skills" class="skills-section">
-        <h3 class="section-title">Tools & Software</h3>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <div class="skill-badge pr">Pr</div>
-                <span class="skill-name">Premiere Pro</span>
-            </div>
-            <div class="skill-card">
-                <div class="skill-badge ae">Ae</div>
-                <span class="skill-name">After Effects</span>
-            </div>
-            <div class="skill-card">
-                <div class="skill-badge ps">Ps</div>
-                <span class="skill-name">Photoshop</span>
-            </div>
-            <div class="skill-card">
-                <div class="skill-badge ai">Ai</div>
-                <span class="skill-name">Illustrator</span>
-            </div>
-            <div class="skill-card">
-                <div class="skill-badge cc">CC</div>
-                <span class="skill-name">CapCut</span>
-            </div>
+    <section class="projects">
+        <h3>Selected <span>Projects</span></h3>
+
+        <div class="grid">
+
+            <!-- PROJECT 1: link eka # wenuwata oyage link eka danna -->
+            <a class="card" href="#" target="_blank" rel="noopener">
+                <span class="tag">VIDEO</span>
+                <h4>Project Name 1</h4>
+                <p>Short description of this project.</p>
+                <span class="arrow">View Project →</span>
+            </a>
+
+            <!-- PROJECT 2 -->
+            <a class="card" href="#" target="_blank" rel="noopener">
+                <span class="tag">DESIGN</span>
+                <h4>Project Name 2</h4>
+                <p>Short description of this project.</p>
+                <span class="arrow">View Project →</span>
+            </a>
+
+            <!-- PROJECT 3 -->
+            <a class="card" href="#" target="_blank" rel="noopener">
+                <span class="tag">MARKETING</span>
+                <h4>Project Name 3</h4>
+                <p>Short description of this project.</p>
+                <span class="arrow">View Project →</span>
+            </a>
+
         </div>
     </section>
 
