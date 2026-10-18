@@ -109,7 +109,7 @@
             </div>
         </div>
 
-        <!-- 4. SHOWREEL (social media, animated yellow) -->
+           <!-- 4. SHOWREEL (live social feed) -->
         <section id="showreel" class="reveal">
             <div class="social-reel">
                 <div class="blob b1"></div>
@@ -117,14 +117,38 @@
                 <div class="blob b3"></div>
                 <div class="reel-content">
                     <p class="label">Showreel</p>
-                    <h2>My Best Work in One Minute</h2>
-                    <p>Watch my latest edits, reels and designs on social media.</p>
-                    <div class="social-cards">
-                        <!-- href eke # wenuwata oyage page / profile links danna -->
-                        <a class="scard" href="https://www.instagram.com/chanaka_arosh?dlrf=cWxma2d0dnFmM3Zn" target="_blank" rel="noopener"><b>Instagram</b><small>Reels &amp; designs</small><span>Watch now →</span></a>
-                        <a class="scard" href="https://www.facebook.com/share/1DnDnbj6gX/?mibextid=wwXIfr" target="_blank" rel="noopener"><b>Facebook</b><small>Videos &amp; flyers</small><span>Watch now →</span></a>
-                        <a class="scard" href="https://www.tiktok.com/@chanaka_arosh?_r=1&_t=ZS-9AfDVzwdF38" target="_blank" rel="noopener"><b>TikTok</b><small>Short edits</small><span>Watch now →</span></a>
+                    <h2>My Latest Work, Live</h2>
+                    <p>My newest edits, reels and designs, straight from my social media.</p>
+
+                    <div class="feed-tabs">
+                        <button class="active" data-feed="ig">Instagram</button>
+                        <button data-feed="fb">Facebook</button>
+                        <button data-feed="tt">TikTok</button>
                     </div>
+
+                    <div class="feed-box">
+
+                        <!-- INSTAGRAM: YOUR_INSTAGRAM wenuwata oyage username eka (@ nathuwa) -->
+                        <div class="feed active" id="feed-ig">
+                            <iframe src="https://www.instagram.com/YOUR_INSTAGRAM/embed" loading="lazy" allowtransparency="true" title="Instagram feed"></iframe>
+                        </div>
+
+                        <!-- FACEBOOK: YOUR_PAGE wenuwata oyage Facebook Page eke name/username eka -->
+                        <div class="feed" id="feed-fb">
+                            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FYOUR_PAGE&tabs=timeline&width=500&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false" loading="lazy" allow="encrypted-media" title="Facebook feed"></iframe>
+                        </div>
+
+                        <!-- TIKTOK: YOUR_TIKTOK wenuwata oyage username eka (@ nathuwa), dekatama danna -->
+                        <div class="feed" id="feed-tt">
+                            <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@YOUR_TIKTOK" data-unique-id="YOUR_TIKTOK" data-embed-type="creator" style="max-width:780px;min-width:288px;">
+                                <section><a target="_blank" rel="noopener" href="https://www.tiktok.com/@YOUR_TIKTOK?refer=creator_embed">@YOUR_TIKTOK</a></section>
+                            </blockquote>
+                        </div>
+
+                    </div>
+
+                    <!-- Follow link: oyage Instagram link eka danna -->
+                    <a class="follow-link" href="https://www.instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noopener">Follow me for more →</a>
                 </div>
             </div>
         </section>
