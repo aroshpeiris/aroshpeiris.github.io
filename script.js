@@ -95,3 +95,19 @@ document.querySelectorAll('.set img').forEach(img => {
   if (img.complete && img.naturalWidth === 0) hide();
   img.addEventListener('error', hide);
 });
+// Live feed tabs
+const ftabs = document.querySelectorAll('.feed-tabs button');
+let ttLoaded = false;
+ftabs.forEach(b => b.addEventListener('click', () => {
+  ftabs.forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.feed').forEach(f => f.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('feed-' + b.dataset.feed).classList.add('active');
+  if (b.dataset.feed === 'tt' && !ttLoaded) {          // TikTok eka click karaddi witharak load wenawa
+    ttLoaded = true;
+    const s = document.createElement('script');
+    s.src = 'https://www.tiktok.com/embed.js';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+}));
