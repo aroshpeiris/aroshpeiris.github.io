@@ -35,14 +35,14 @@
 </head>
 <body>
 
-    <!-- HERO -->
+    <!-- 1. HERO -->
     <header class="hero">
         <img class="hero-photo" src="hero.png" alt="Arosh Peiris" onerror="this.style.display='none'">
         <nav>
             <div class="logo">Arosh Peiris</div>
             <div class="menu">
-                <a href="#showreel">Showreel</a>
                 <a href="#aboutme">About</a>
+                <a href="#showreel">Showreel</a>
                 <a href="#services">Services</a>
                 <a href="#projects">Projects</a>
                 <a class="btn" href="#contact">Get in touch <i>→</i></a>
@@ -63,45 +63,7 @@
 
     <div class="wrap">
 
-        <!-- CLIENT LOGOS -->
-        <div class="clients reveal">
-            <small>Trusted by Brands I've Helped</small>
-            <div class="marquee">
-                <div class="track">
-                    <div class="set">
-                        <img src="logos/client1.png" alt="Client 1">
-                        <img src="logos/client2.png" alt="Client 2">
-                        <img src="logos/client3.png" alt="Client 3">
-                        <img src="logos/client4.png" alt="Client 4">
-                        <img src="logos/client5.png" alt="Client 5">
-                    </div>
-                    <div class="set" aria-hidden="true">
-                        <img src="logos/client1.png" alt="">
-                        <img src="logos/client2.png" alt="">
-                        <img src="logos/client3.png" alt="">
-                        <img src="logos/client4.png" alt="">
-                        <img src="logos/client5.png" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SHOWREEL -->
-        <section id="showreel" class="reveal">
-            <div class="head">
-                <div>
-                    <p class="label">Showreel</p>
-                    <h2>My Best Work in One Minute</h2>
-                </div>
-            </div>
-            <!-- YouTube nam: data-yt="VIDEO_ID"   |   file nam: data-video="showreel.mp4" -->
-            <div class="reel" data-video="showreel.mp4">
-                <div class="play">▶</div>
-                <div class="reel-title">Showreel 2026<small>Click to play</small></div>
-            </div>
-        </section>
-
-        <!-- ABOUT ME -->
+        <!-- 2. ABOUT ME -->
         <section id="aboutme" class="reveal">
             <div class="aboutme">
                 <div class="me-photo"></div>
@@ -124,7 +86,50 @@
             </div>
         </section>
 
-        <!-- SERVICES -->
+        <!-- 3. TRUSTED BY BRANDS -->
+        <div class="clients reveal">
+            <small>Trusted by Brands I've Helped</small>
+            <div class="marquee">
+                <div class="track">
+                    <div class="set">
+                        <img src="logos/client1.png" alt="Client 1">
+                        <img src="logos/client2.png" alt="Client 2">
+                        <img src="logos/client3.png" alt="Client 3">
+                        <img src="logos/client4.png" alt="Client 4">
+                        <img src="logos/client5.png" alt="Client 5">
+                    </div>
+                    <div class="set" aria-hidden="true">
+                        <img src="logos/client1.png" alt="">
+                        <img src="logos/client2.png" alt="">
+                        <img src="logos/client3.png" alt="">
+                        <img src="logos/client4.png" alt="">
+                        <img src="logos/client5.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. SHOWREEL (social media, animated yellow) -->
+        <section id="showreel" class="reveal">
+            <div class="social-reel">
+                <div class="blob b1"></div>
+                <div class="blob b2"></div>
+                <div class="blob b3"></div>
+                <div class="reel-content">
+                    <p class="label">Showreel</p>
+                    <h2>My Best Work in One Minute</h2>
+                    <p>Watch my latest edits, reels and designs on social media.</p>
+                    <div class="social-cards">
+                        <!-- href eke # wenuwata oyage page / profile links danna -->
+                        <a class="scard" href="#" target="_blank" rel="noopener"><b>Instagram</b><small>Reels &amp; designs</small><span>Watch now →</span></a>
+                        <a class="scard" href="#" target="_blank" rel="noopener"><b>Facebook</b><small>Videos &amp; flyers</small><span>Watch now →</span></a>
+                        <a class="scard" href="#" target="_blank" rel="noopener"><b>TikTok</b><small>Short edits</small><span>Watch now →</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SERVICES -->
         <section id="services" class="reveal">
             <div class="head">
                 <div>
@@ -141,7 +146,7 @@
             </div>
         </section>
 
-        <!-- PROJECTS -->
+        <!-- 6. PROJECTS -->
         <section id="projects" class="reveal">
             <div class="head">
                 <div>
@@ -159,19 +164,19 @@
             </div>
 
             <div class="grid">
-                <!-- VIDEO: YouTube nam data-yt="ID", file nam data-video="videos/video1.mp4" -->
-                <a class="card" href="#" data-cat="video" data-yt="YOUR_VIDEO_ID">
+                <!-- VIDEO: href eke oyage Instagram / Facebook / TikTok post link eka danna (click karama aluth tab ekak open wenawa) -->
+                <a class="card" href="https://www.instagram.com/" target="_blank" rel="noopener" data-cat="video">
                     <div class="thumb t1"></div>
                     <div class="body"><span class="tag">VIDEO</span><h4>Video Project 1</h4>
-                    <p>Short description of this project.</p><span class="arrow">Play Video →</span></div>
+                    <p>Short description of this project.</p><span class="arrow">Watch Video →</span></div>
                 </a>
-                <a class="card" href="#" data-cat="video" data-video="videos/video2.mp4">
+                <a class="card" href="https://www.facebook.com/" target="_blank" rel="noopener" data-cat="video">
                     <div class="thumb t2"></div>
                     <div class="body"><span class="tag">VIDEO</span><h4>Video Project 2</h4>
-                    <p>Short description of this project.</p><span class="arrow">Play Video →</span></div>
+                    <p>Short description of this project.</p><span class="arrow">Watch Video →</span></div>
                 </a>
 
-                <!-- DESIGN / FLYERS: data-img eka big image eke path eka -->
+                <!-- DESIGN / FLYERS: data-img eka big image eke path eka (site eke pop-up eke penenawa) -->
                 <a class="card" href="#" data-cat="design" data-img="designs/design1.jpg">
                     <div class="thumb t3"></div>
                     <div class="body"><span class="tag">DESIGN</span><h4>Design Project 1</h4>
@@ -187,10 +192,10 @@
                     <div class="body"><span class="tag">MARKETING</span><h4>Marketing Project 1</h4>
                     <p>Short description of this project.</p><span class="arrow">View Project →</span></div>
                 </a>
-                <a class="card" href="#" data-cat="video" data-yt="YOUR_VIDEO_ID_2">
+                <a class="card" href="https://www.tiktok.com/" target="_blank" rel="noopener" data-cat="video">
                     <div class="thumb t6"></div>
                     <div class="body"><span class="tag">VIDEO</span><h4>Video Project 3</h4>
-                    <p>Short description of this project.</p><span class="arrow">Play Video →</span></div>
+                    <p>Short description of this project.</p><span class="arrow">Watch Video →</span></div>
                 </a>
             </div>
         </section>
@@ -204,9 +209,9 @@
 
         <!-- YOUR_FORM_ID wenuwata Formspree eken ena ID eka danna -->
         <form class="form" id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <input type="text" name="name" placeholder="Your name" required>
-            <input type="email" name="email" placeholder="Your email" required>
-            <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+            <input type="text" name="name" placeholder="Your name" required data-gramm="false" data-enable-grammarly="false">
+            <input type="email" name="email" placeholder="Your email" required data-gramm="false" data-enable-grammarly="false">
+            <textarea name="message" placeholder="Tell me about your project..." required data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false"></textarea>
             <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
             <button class="btn" type="submit">Send Message <i>→</i></button>
             <p id="formMsg"></p>
@@ -216,7 +221,7 @@
         <div class="socials">
             <a href="#" target="_blank" rel="noopener">Instagram</a>
             <a href="#" target="_blank" rel="noopener">Facebook</a>
-            <a href="#" target="_blank" rel="noopener">YouTube</a>
+            <a href="#" target="_blank" rel="noopener">TikTok</a>
             <a href="#" target="_blank" rel="noopener">Behance</a>
             <a href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
@@ -224,14 +229,14 @@
 
     <footer>© 2026 Arosh Peiris. All rights reserved.</footer>
 
-    <!-- POP-UP PLAYER -->
+    <!-- POP-UP PLAYER (design images walata) -->
     <div class="modal" id="modal">
         <button class="modal-close" id="modalClose" aria-label="Close">×</button>
         <div class="modal-box" id="modalBox"></div>
     </div>
 
-    <!-- WHATSAPP BUTTON: 94713135026 wenuwata oyage number eka (0 ain karala 94) -->
-    <a class="wa-float" href="https://wa.me/94713135026?text=Hi%20Arosh%2C%20I%20saw%20your%20portfolio!" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <!-- WHATSAPP BUTTON: 94771234567 wenuwata oyage number eka (0 ain karala 94) -->
+    <a class="wa-float" href="https://wa.me/94771234567?text=Hi%20Arosh%2C%20I%20saw%20your%20portfolio!" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
         <span>Chat with me</span>
         <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
     </a>
