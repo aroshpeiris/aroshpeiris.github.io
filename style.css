@@ -279,3 +279,35 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .social-reel { padding: 50px 20px; border-radius: 24px; }
   .hero::before { width: 320px; height: 320px; right: -60px; }
 }
+/* ---------- LIVE SOCIAL FEED ---------- */
+.reel-content > p.label { margin: 0 auto 8px; }
+
+.feed-tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.feed-tabs button {
+  font-family: inherit; font-weight: 600; font-size: .85rem; cursor: pointer;
+  background: transparent; color: var(--dark); border: 2px solid var(--dark);
+  padding: 9px 24px; border-radius: 50px; transition: background .3s, color .3s, transform .3s;
+}
+.feed-tabs button:hover { transform: translateY(-3px); }
+.feed-tabs button.active { background: var(--dark); color: var(--yellow); }
+
+.feed-box {
+  max-width: 540px; margin: 0 auto; min-height: 300px;
+  background: var(--dark); border-radius: 24px; padding: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+}
+.feed { display: none; }
+.feed.active { display: block; animation: fadeIn .4s ease; }
+.feed iframe { width: 100%; height: 620px; border: 0; border-radius: 14px; background: #fff; }
+.feed .tiktok-embed { margin: 0 auto !important; }
+
+.follow-link {
+  display: inline-block; margin-top: 22px; font-weight: 700; color: var(--dark);
+  border-bottom: 2px solid var(--dark); transition: transform .3s;
+}
+.follow-link:hover { transform: translateX(6px); }
+
+@media (max-width: 800px) {
+  .feed iframe { height: 520px; }
+  .feed-box { padding: 8px; border-radius: 18px; }
+}
