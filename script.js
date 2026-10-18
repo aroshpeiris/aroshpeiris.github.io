@@ -89,3 +89,9 @@ form.addEventListener('submit', async e => {
     msg.className = 'err'; msg.textContent = 'Oops, something went wrong. Please WhatsApp me instead.';
   }
 });
+// Broken logo images hide karanna
+document.querySelectorAll('.set img').forEach(img => {
+  const hide = () => img.style.display = 'none';
+  if (img.complete && img.naturalWidth === 0) hide();
+  img.addEventListener('error', hide);
+});
