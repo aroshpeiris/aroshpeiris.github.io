@@ -32,17 +32,12 @@ form.addEventListener('submit',async e=>{e.preventDefault();msg.className='';msg
  try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
   if(!r.ok)throw 0;msg.className='ok';msg.textContent='Thanks! Your message has been sent.';form.reset()}
  catch{msg.className='err';msg.textContent='Something went wrong. Please WhatsApp me instead.'}});
-// Showreel scrolling cards  (img = thumbnail, link = reel/post link, tag = label)
-const works=[
- {img:'works/work1.jpg',link:'#',tag:'REEL'},{img:'works/work2.jpg',link:'#',tag:'EDIT'},
- {img:'works/work3.jpg',link:'#',tag:'FLYER'},{img:'works/work4.jpg',link:'#',tag:'PROMO'},
- {img:'works/work5.jpg',link:'#',tag:'DESIGN'},{img:'works/work6.jpg',link:'#',tag:'REEL'},
- {img:'works/work7.jpg',link:'#',tag:'AD'},{img:'works/work8.jpg',link:'#',tag:'EDIT'}];
-const fb=['linear-gradient(135deg,#FFD60A,#141414)','linear-gradient(135deg,#8a6d00,#0B0B0B)','linear-gradient(135deg,#FFC300,#3a3000)','linear-gradient(135deg,#a88700,#141414)'];
-function row(id,list){const r=document.getElementById(id),t=document.createElement('div');t.className='wtrack';
- for(let k=0;k<2;k++){const s=document.createElement('div');s.className='wset';
-  list.forEach((x,i)=>{const a=document.createElement('a');a.className='wcard';a.href=x.link;a.target='_blank';a.rel='noopener';
-   a.style.backgroundImage="url('"+x.img+"'),"+fb[i%4];a.innerHTML='<span>'+x.tag+'</span>';
-   if(x.link==='#')a.onclick=e=>e.preventDefault();s.appendChild(a)});t.appendChild(s)}
- r.appendChild(t)}
-row('row1',works);row('row2',works.slice().reverse());
+// Text animation (word by word)
+function splitText(n,c){[...n.childNodes].forEach(k=>{
+ if(k.nodeType===3){const f=document.createDocumentFragment();
+  k.textContent.split(/(\s+)/).forEach(t=>{if(!t.trim()){f.appendChild(document.createTextNode(t));return}
+   const w=document.createElement('span');w.className='w';const i=document.createElement('i');i.textContent=t;
+   i.style.setProperty('--i',Math.min(c.n++,18));w.appendChild(i);f.appendChild(w)});k.replaceWith(f)}
+ else if(k.nodeType===1)splitText(k,c)})}
+const tio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');tio.unobserve(e.target)}}),{threshold:.2});
+document.querySelectorAll('.tx').forEach(el=>{splitText(el,{n:0});tio.observe(el)});
