@@ -155,15 +155,24 @@ section{padding:70px 0}.in-w{padding:0 20px}.nav-links{display:none}.nav{padding
 .set{gap:90px;padding-right:90px}.set img{height:64px;opacity:.8}
 @media(max-width:800px){.clientsec{padding:60px 0 30px}.set{gap:56px;padding-right:56px}.set img{height:44px}.fl{width:46px;height:46px;font-size:.95rem;border-radius:13px}}
 
-/* reels */
-.reels{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:16px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--y) #1a1a1a}
-.rcard{position:relative;flex:none;width:min(250px,64vw);aspect-ratio:9/16;border-radius:22px;overflow:hidden;scroll-snap-align:start;cursor:pointer;background:linear-gradient(160deg,#FFD60A,#3a3000 55%,#141414);transition:transform .4s,box-shadow .4s}
-.rcard:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(255,214,10,.22)}
+/* reels (fan layout) */
+.reels{display:flex;justify-content:center;align-items:center;padding:50px 0 40px}
+.rcard{--r:-3deg;--ty:0px;position:relative;flex:none;width:clamp(150px,18vw,232px);aspect-ratio:9/16;margin-left:-22px;border-radius:28px;overflow:hidden;cursor:pointer;background:linear-gradient(160deg,#FFD60A,#3a3000 55%,#141414);transform:rotate(var(--r)) translateY(var(--ty));transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.rcard:first-child{margin-left:0}
+.rcard:nth-child(2){--r:2.5deg;--ty:-18px}.rcard:nth-child(3){--r:-2deg;--ty:14px}.rcard:nth-child(4){--r:3.5deg;--ty:-14px}.rcard:nth-child(5){--r:-3deg;--ty:8px}
+.rcard:hover{transform:rotate(0) translateY(-16px) scale(1.05);z-index:5;box-shadow:0 30px 60px rgba(255,214,10,.25)}
 .rcard video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .rcard.miss video{display:none}
-.rcard::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 45%);z-index:1;pointer-events:none}
-.rtag{position:absolute;left:16px;bottom:14px;z-index:2;font-size:.8rem;font-weight:700;letter-spacing:1px;color:var(--y)}
-.rcard.miss .rtag::after{content:" · add video";opacity:.7;font-weight:500}
-.rplay{position:absolute;right:14px;top:14px;z-index:2;width:38px;height:38px;border-radius:50%;background:var(--y);display:grid;place-items:center}
-.rplay::before{content:"";margin-left:3px;border-left:11px solid var(--d);border-top:7px solid transparent;border-bottom:7px solid transparent}
+.rcard::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),transparent 40%);z-index:1;pointer-events:none}
+.rtag{display:none;position:absolute;left:14px;top:14px;z-index:2;font-size:.7rem;font-weight:600;color:var(--d)}
+.rcard.miss .rtag{display:block}
+.rname{position:absolute;left:14px;bottom:14px;z-index:2;display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600}
+.rname i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--y);color:var(--d);display:grid;place-items:center;font-weight:800;font-size:.8rem}
+.rpp{position:absolute;right:12px;bottom:12px;z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center}
+.rpp::before{content:"";width:10px;height:12px;border-left:3px solid #fff;border-right:3px solid #fff}
+.rcard.paused .rpp::before,.rcard.miss .rpp::before{width:0;height:0;border:0;border-left:10px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
+.rfollow{text-align:center;margin-top:20px}
+@media(max-width:800px){.reels{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:30px 20px 24px;margin:0 -20px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.rcard,.rcard:first-child{width:62vw;margin-left:0;scroll-snap-align:center;transform:rotate(calc(var(--r)*.4))}.rcard:hover{transform:none}}
 .modal video{max-width:100%;max-height:88vh;border-radius:16px;background:#000}
+.rcard{margin-left:-10px}.rcard:first-child{margin-left:0}@media(max-width:800px){.rcard{margin-left:0}}
