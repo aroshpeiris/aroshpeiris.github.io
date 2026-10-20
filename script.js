@@ -31,7 +31,12 @@ pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style
 
 // Reels
 $$('.rcard video').forEach(v=>v.addEventListener('error',()=>v.parentNode.classList.add('miss')));
-const vio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.play().catch(()=>{});else e.target.pause()}),{threshold:.6});
-$$('.rcard video').forEach(v=>vio.observe(v));
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target,c=v.parentNode;
+ if(e.isIntersecting&&!v.dataset.manual){v.play().then(()=>c.classList.remove('paused')).catch(()=>c.classList.add('paused'))}
+ else if(!e.isIntersecting){v.pause();c.classList.add('paused')}}),{threshold:.6});
+$$('.rcard video').forEach(v=>{v.parentNode.classList.add('paused');vio.observe(v)});
+$$('.rpp').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const c=b.parentNode,v=c.querySelector('video');
+ if(c.classList.contains('miss'))return;
+ if(v.paused){v.dataset.manual='';v.play();c.classList.remove('paused')}else{v.dataset.manual=1;v.pause();c.classList.add('paused')}}));
 $$('[data-video]').forEach(el=>el.addEventListener('click',()=>{if(el.classList.contains('miss'))return;
  box.innerHTML='<video src="'+el.dataset.video+'" controls autoplay playsinline></video>';modal.classList.add('open');document.body.style.overflow='hidden'}));
