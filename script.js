@@ -28,3 +28,10 @@ form.addEventListener('submit',async e=>{e.preventDefault();msg.className='';msg
 const pan=$('.panel');
 pan.addEventListener('mousemove',e=>{const r=pan.getBoundingClientRect();pan.style.setProperty('--mx',(e.clientX-r.left)/r.width-.5);pan.style.setProperty('--my',(e.clientY-r.top)/r.height-.5)});
 pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style.setProperty('--my',0)});
+
+// Reels
+$$('.rcard video').forEach(v=>v.addEventListener('error',()=>v.parentNode.classList.add('miss')));
+const vio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.play().catch(()=>{});else e.target.pause()}),{threshold:.6});
+$$('.rcard video').forEach(v=>vio.observe(v));
+$$('[data-video]').forEach(el=>el.addEventListener('click',()=>{if(el.classList.contains('miss'))return;
+ box.innerHTML='<video src="'+el.dataset.video+'" controls autoplay playsinline></video>';modal.classList.add('open');document.body.style.overflow='hidden'}));
