@@ -189,3 +189,18 @@ a.rcard{display:block;color:inherit}
 .rplay::before{content:"";margin-left:5px;border-left:18px solid var(--d);border-top:11px solid transparent;border-bottom:11px solid transparent}
 .rcard.miss .rplay{display:grid}.rcard.miss:hover .rplay{transform:scale(1.15)}
 .modal iframe{width:min(400px,92vw);height:min(86vh,720px);border:0;border-radius:16px;background:#fff;display:block}
+
+/* reels: play inside cards */
+.rcard{aspect-ratio:17/37;cursor:default}
+.rcard iframe{position:absolute;top:0;left:0;width:340px;border:0;transform-origin:0 0;background:#fff;z-index:2}
+.rcard.emb::before,.rcard.emb .rname{display:none}
+.rcard.empty .rtag{display:block;color:var(--d);font-weight:700}
+.rcard.empty .rtag::after{content:"coming soon"}
+.rcard.empty .rtag::before{content:"Reel "}
+.rcard.empty .rtag{font-size:0}.rcard.empty .rtag::before,.rcard.empty .rtag::after{font-size:.75rem}
+
+/* reels: autoplay preview + click opens the real reel */
+.rcard{aspect-ratio:9/16;cursor:pointer}
+.rcard.empty .rtag::before,.rcard.empty .rtag::after{content:none}
+.rcard.miss .rpp{display:none}
+.rcard .rgo{display:grid}
