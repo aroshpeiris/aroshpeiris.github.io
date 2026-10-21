@@ -29,14 +29,26 @@ const pan=$('.panel');
 pan.addEventListener('mousemove',e=>{const r=pan.getBoundingClientRect();pan.style.setProperty('--mx',(e.clientX-r.left)/r.width-.5);pan.style.setProperty('--my',(e.clientY-r.top)/r.height-.5)});
 pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style.setProperty('--my',0)});
 
-// Reels: hover = play, click = open Instagram
-$$('.rcard video').forEach(v=>v.addEventListener('error',()=>v.parentNode.classList.add('miss')));
-const vids=[...$$('.rcard')];
+// Reels: hover = play (if mp4 uploaded), click = play the Instagram / Facebook / TikTok reel on the site
+const rc=[...$$('.rcard')];
+const nm=u=>/instagram/.test(u)?'Instagram':/tiktok/.test(u)?'TikTok':/facebook|fb\.watch/.test(u)?'Facebook':'Reel';
+function embed(u){let m;
+ if(m=u.match(/instagram\.com\/(reels?|p|tv)\/([\w-]+)/))return 'https://www.instagram.com/'+(m[1]==='reels'?'reel':m[1])+'/'+m[2]+'/embed';
+ if(m=u.match(/tiktok\.com\/.*\/video\/(\d+)/))return 'https://www.tiktok.com/embed/v2/'+m[1];
+ if(/facebook\.com\/(reel|watch|[^/]+\/videos)|fb\.watch/.test(u))return 'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false&width=400';
+ return null}
+rc.forEach(c=>{const v=c.querySelector('video'),u=c.href,src=embed(u);
+ c.querySelector('.rtag').textContent=nm(u)+' Reel';
+ v.addEventListener('error',()=>c.classList.add('miss'));
+ c.addEventListener('click',e=>{if(!src)return;e.preventDefault();
+  box.innerHTML='<iframe src="'+src+'" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe>';
+  modal.classList.add('open');document.body.style.overflow='hidden'})});
+addEventListener('load',()=>rc.forEach(c=>{const v=c.querySelector('video');if(v.error||v.networkState===3)c.classList.add('miss')}));
 if(matchMedia('(hover:hover)').matches){
- vids.forEach(c=>{const v=c.querySelector('video');
+ rc.forEach(c=>{const v=c.querySelector('video');
   c.addEventListener('mouseenter',()=>v.play().catch(()=>{}));
   c.addEventListener('mouseleave',()=>{v.pause();v.currentTime=0})})
 }else{
  const vio=new IntersectionObserver(es=>es.forEach(e=>{e.isIntersecting?e.target.play().catch(()=>{}):e.target.pause()}),{threshold:.6});
- vids.forEach(c=>vio.observe(c.querySelector('video')))
+ rc.forEach(c=>vio.observe(c.querySelector('video')))
 }
