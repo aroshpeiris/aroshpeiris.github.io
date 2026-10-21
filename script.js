@@ -29,26 +29,19 @@ const pan=$('.panel');
 pan.addEventListener('mousemove',e=>{const r=pan.getBoundingClientRect();pan.style.setProperty('--mx',(e.clientX-r.left)/r.width-.5);pan.style.setProperty('--my',(e.clientY-r.top)/r.height-.5)});
 pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style.setProperty('--my',0)});
 
-// Reels: hover = play (if mp4 uploaded), click = play the Instagram / Facebook / TikTok reel on the site
-const rc=[...$$('.rcard')];
+// Reels: preview auto plays on the site, click opens the real Instagram / TikTok / Facebook reel
 const nm=u=>/instagram/.test(u)?'Instagram':/tiktok/.test(u)?'TikTok':/facebook|fb\.watch/.test(u)?'Facebook':'Reel';
-function embed(u){let m;
- if(m=u.match(/instagram\.com\/(reels?|p|tv)\/([\w-]+)/))return 'https://www.instagram.com/'+(m[1]==='reels'?'reel':m[1])+'/'+m[2]+'/embed';
- if(m=u.match(/tiktok\.com\/.*\/video\/(\d+)/))return 'https://www.tiktok.com/embed/v2/'+m[1];
- if(/facebook\.com\/(reel|watch|[^/]+\/videos)|fb\.watch/.test(u))return 'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false&width=400';
- return null}
-rc.forEach(c=>{const v=c.querySelector('video'),u=c.href,src=embed(u);
- c.querySelector('.rtag').textContent=nm(u)+' Reel';
+const rc=[...$$('.rcard')];
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target,c=v.parentNode;
+ if(e.isIntersecting){if(!v.dataset.manual)v.play().catch(()=>{})}else v.pause()}),{threshold:.35});
+rc.forEach(c=>{const v=document.createElement('video');
+ v.src=c.dataset.video;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.setAttribute('muted','');v.setAttribute('playsinline','');
+ c.insertBefore(v,c.firstChild);
+ c.querySelector('.rtag').textContent=nm(c.href)+' Reel';
  v.addEventListener('error',()=>c.classList.add('miss'));
- c.addEventListener('click',e=>{if(!src)return;e.preventDefault();
-  box.innerHTML='<iframe src="'+src+'" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no"></iframe>';
-  modal.classList.add('open');document.body.style.overflow='hidden'})});
+ const b=document.createElement('button');b.className='rpp';b.setAttribute('aria-label','Pause or play');c.appendChild(b);
+ b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
+  if(v.paused){v.dataset.manual='';v.play();c.classList.remove('paused')}else{v.dataset.manual=1;v.pause();c.classList.add('paused')}});
+ v.addEventListener('pause',()=>c.classList.add('paused'));v.addEventListener('play',()=>c.classList.remove('paused'));
+ vio.observe(v)});
 addEventListener('load',()=>rc.forEach(c=>{const v=c.querySelector('video');if(v.error||v.networkState===3)c.classList.add('miss')}));
-if(matchMedia('(hover:hover)').matches){
- rc.forEach(c=>{const v=c.querySelector('video');
-  c.addEventListener('mouseenter',()=>v.play().catch(()=>{}));
-  c.addEventListener('mouseleave',()=>{v.pause();v.currentTime=0})})
-}else{
- const vio=new IntersectionObserver(es=>es.forEach(e=>{e.isIntersecting?e.target.play().catch(()=>{}):e.target.pause()}),{threshold:.6});
- rc.forEach(c=>vio.observe(c.querySelector('video')))
-}
