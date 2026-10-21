@@ -12,7 +12,10 @@ const words=['Video Editor','Graphic Designer','Junior Marketer'],typed=$('#type
  if(!del&&c<s.length){c++;setTimeout(t,90)}else if(!del){del=true;setTimeout(t,1400)}
  else if(c>0){c--;setTimeout(t,45)}else{del=false;w=(w+1)%words.length;setTimeout(t,300)}})();
 addEventListener('scroll',()=>{$('#bar').style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%'},{passive:true});
-$$('.set img').forEach(i=>{const h=()=>i.style.display='none';if(i.complete&&!i.naturalWidth)h();i.addEventListener('error',h)});
+// logos: PNG, SVG, WEBP or JPG all work (tries each extension automatically)
+const EXT=['png','svg','webp','jpg'];
+function nextExt(i){const k=(+i.dataset.k||0)+1;if(k<EXT.length){i.dataset.k=k;i.src=i.src.replace(/\.\w+(\?.*)?$/,'.'+EXT[k])}else i.style.display='none'}
+$$('.set img').forEach(i=>{i.addEventListener('error',()=>nextExt(i));if(i.complete&&!i.naturalWidth)nextExt(i)});
 const modal=$('#modal'),box=$('#mbox'),close=()=>{modal.classList.remove('open');box.innerHTML='';document.body.style.overflow=''};
 $$('[data-img]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();box.innerHTML='<img src="'+el.dataset.img+'" alt="">';modal.classList.add('open');document.body.style.overflow='hidden'}));
 $('#mclose').onclick=close;modal.onclick=e=>{if(e.target===modal)close()};addEventListener('keydown',e=>{if(e.key==='Escape')close()});
@@ -48,6 +51,6 @@ rc.forEach(c=>{const v=document.createElement('video');
 addEventListener('load',()=>rc.forEach(c=>{const v=c.querySelector('video');if(v.error||v.networkState===3)c.classList.add('miss')}));
 // Few logos? Repeat them so the loop has no big gaps
 addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientsec .set');if(!m||sets.length<2)return;
- const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.naturalWidth);if(!vis.length)return;
+ const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.offsetWidth>0);if(!vis.length)return;
  let g=0;while(sets[0].scrollWidth<m.clientWidth&&g++<8)vis.forEach(i=>sets[0].appendChild(i.cloneNode()));
  sets[1].innerHTML=sets[0].innerHTML});
