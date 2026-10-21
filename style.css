@@ -204,3 +204,14 @@ a.rcard{display:block;color:inherit}
 .rcard.empty .rtag::before,.rcard.empty .rtag::after{content:none}
 .rcard.miss .rpp{display:none}
 .rcard .rgo{display:grid}
+
+/* v5.5 */
+#skills .skill i{background:none;border:2px solid var(--y);color:var(--y)}
+#skills .skill:hover i{background:var(--y);color:var(--d)}
+#skills .skill small{color:var(--l)}
+.rname{display:none}
+
+/* skills on dark */
+#skills .skill i{background:transparent;border:2px solid var(--y);color:var(--y)}
+#skills .skill:hover i{background:var(--y);color:var(--d);box-shadow:0 16px 30px rgba(255,214,10,.3)}
+#skills .skill small{font-weight:500}
