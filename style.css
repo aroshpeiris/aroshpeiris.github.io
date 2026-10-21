@@ -176,3 +176,8 @@ section{padding:70px 0}.in-w{padding:0 20px}.nav-links{display:none}.nav{padding
 .rcard,.rcard:first-child{width:62vw;margin-left:0;scroll-snap-align:center;transform:rotate(calc(var(--r)*.4))}.rcard:hover{transform:none}}
 .modal video{max-width:100%;max-height:88vh;border-radius:16px;background:#000}
 .rcard{margin-left:-10px}.rcard:first-child{margin-left:0}@media(max-width:800px){.rcard{margin-left:0}}
+
+a.rcard{display:block;color:inherit}
+.rgo{position:absolute;right:12px;top:12px;z-index:3;width:34px;height:34px;border-radius:50%;background:var(--y);color:var(--d);display:grid;place-items:center;font-weight:800;opacity:0;transform:scale(.6);transition:.3s}
+.rcard:hover .rgo{opacity:1;transform:none}
+@media(hover:none){.rgo{opacity:1;transform:none}}
