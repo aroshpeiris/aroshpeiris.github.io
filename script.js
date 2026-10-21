@@ -38,6 +38,7 @@ rc.forEach(c=>{const v=document.createElement('video');
  v.src=c.dataset.video;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.setAttribute('muted','');v.setAttribute('playsinline','');
  c.insertBefore(v,c.firstChild);
  c.querySelector('.rtag').textContent=nm(c.href)+' Reel';
+ c.style.backgroundImage="url('"+c.dataset.video.replace(/\.mp4.*/,'.jpg')+"'),linear-gradient(160deg,#FFD60A,#3a3000 55%,#141414)";c.style.backgroundSize='cover';c.style.backgroundPosition='center';
  v.addEventListener('error',()=>c.classList.add('miss'));
  const b=document.createElement('button');b.className='rpp';b.setAttribute('aria-label','Pause or play');c.appendChild(b);
  b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
@@ -45,3 +46,8 @@ rc.forEach(c=>{const v=document.createElement('video');
  v.addEventListener('pause',()=>c.classList.add('paused'));v.addEventListener('play',()=>c.classList.remove('paused'));
  vio.observe(v)});
 addEventListener('load',()=>rc.forEach(c=>{const v=c.querySelector('video');if(v.error||v.networkState===3)c.classList.add('miss')}));
+// Few logos? Repeat them so the loop has no big gaps
+addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientsec .set');if(!m||sets.length<2)return;
+ const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.naturalWidth);if(!vis.length)return;
+ let g=0;while(sets[0].scrollWidth<m.clientWidth&&g++<8)vis.forEach(i=>sets[0].appendChild(i.cloneNode()));
+ sets[1].innerHTML=sets[0].innerHTML});
