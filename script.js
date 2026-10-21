@@ -29,14 +29,14 @@ const pan=$('.panel');
 pan.addEventListener('mousemove',e=>{const r=pan.getBoundingClientRect();pan.style.setProperty('--mx',(e.clientX-r.left)/r.width-.5);pan.style.setProperty('--my',(e.clientY-r.top)/r.height-.5)});
 pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style.setProperty('--my',0)});
 
-// Reels
+// Reels: hover = play, click = open Instagram
 $$('.rcard video').forEach(v=>v.addEventListener('error',()=>v.parentNode.classList.add('miss')));
-const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target,c=v.parentNode;
- if(e.isIntersecting&&!v.dataset.manual){v.play().then(()=>c.classList.remove('paused')).catch(()=>c.classList.add('paused'))}
- else if(!e.isIntersecting){v.pause();c.classList.add('paused')}}),{threshold:.6});
-$$('.rcard video').forEach(v=>{v.parentNode.classList.add('paused');vio.observe(v)});
-$$('.rpp').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const c=b.parentNode,v=c.querySelector('video');
- if(c.classList.contains('miss'))return;
- if(v.paused){v.dataset.manual='';v.play();c.classList.remove('paused')}else{v.dataset.manual=1;v.pause();c.classList.add('paused')}}));
-$$('[data-video]').forEach(el=>el.addEventListener('click',()=>{if(el.classList.contains('miss'))return;
- box.innerHTML='<video src="'+el.dataset.video+'" controls autoplay playsinline></video>';modal.classList.add('open');document.body.style.overflow='hidden'}));
+const vids=[...$$('.rcard')];
+if(matchMedia('(hover:hover)').matches){
+ vids.forEach(c=>{const v=c.querySelector('video');
+  c.addEventListener('mouseenter',()=>v.play().catch(()=>{}));
+  c.addEventListener('mouseleave',()=>{v.pause();v.currentTime=0})})
+}else{
+ const vio=new IntersectionObserver(es=>es.forEach(e=>{e.isIntersecting?e.target.play().catch(()=>{}):e.target.pause()}),{threshold:.6});
+ vids.forEach(c=>vio.observe(c.querySelector('video')))
+}
