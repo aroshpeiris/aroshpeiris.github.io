@@ -323,3 +323,21 @@ body::before{width:520px;height:520px}body::after{width:480px;height:480px}
 .reel{animation:none}.blob{filter:none;animation:none}
 .b1{background:radial-gradient(closest-side,rgba(255,246,176,.9),transparent)}.b2{background:radial-gradient(closest-side,rgba(255,159,10,.7),transparent)}
 }
+
+/* ===== v6: no yellow outline on reels, smaller + slower logos, intro animation ===== */
+.cf .rcard{border:0;background:#0b0b0b}
+.cf .rcard.miss{background:linear-gradient(160deg,#FFD60A,#3a3000 55%,#141414)}
+.cf .rcard.on,.cf .rcard.on:hover{box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.cf .rcard:hover{box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.set{gap:64px;padding-right:64px}.set img{height:40px}
+.clientsec .track{animation-duration:70s}
+@media(max-width:800px){.set{gap:44px;padding-right:44px}.set img{height:30px}}
+#intro{position:fixed;inset:0;z-index:5000;background:#0B0B0B;display:grid;place-items:center;transition:transform .9s cubic-bezier(.77,0,.18,1);animation:inFail .01s 4s forwards}
+#intro.out{transform:translateY(-100%)}#intro.gone{display:none}
+.in-logo{display:flex;overflow:hidden;font-size:clamp(2.4rem,10vw,5rem);font-weight:800;letter-spacing:-1px;padding-bottom:.1em}
+.in-logo span{display:inline-block;transform:translateY(115%);animation:inUp .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--i)*.08s)}
+.in-logo .dot{color:var(--y)}
+.in-bar{position:absolute;bottom:20%;left:50%;width:min(220px,50vw);height:3px;transform:translateX(-50%);background:rgba(255,255,255,.15);overflow:hidden;border-radius:3px}
+.in-bar i{display:block;height:100%;background:var(--y);transform:scaleX(0);transform-origin:left;animation:inBar 1.4s ease forwards}
+@keyframes inUp{to{transform:none}}@keyframes inBar{to{transform:scaleX(1)}}@keyframes inFail{to{visibility:hidden;pointer-events:none}}
+body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-play-state:paused}
