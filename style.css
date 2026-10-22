@@ -237,3 +237,16 @@ a.rcard{display:block;color:inherit}
 h2.big{margin-bottom:28px}
 .mail{margin-bottom:34px}
 }
+
+/* how i work + faster logo loop */
+.clientsec .track{animation-duration:14s}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.step{position:relative;padding-top:36px}
+.step::before{content:"";position:absolute;top:4px;left:0;width:14px;height:14px;border-radius:50%;background:var(--y);box-shadow:0 0 0 6px rgba(255,214,10,.18)}
+.step::after{content:"";position:absolute;top:10px;left:26px;right:-28px;height:2px;background:linear-gradient(90deg,var(--y),#2a2a2a)}
+.step:last-child::after{display:none}
+.step b{display:block;font-size:1.25rem;margin-bottom:8px}
+.step p{font-size:.9rem;font-weight:300;opacity:.75;line-height:1.7}
+@media(max-width:800px){.steps{grid-template-columns:1fr;gap:0}
+.step{padding:0 0 30px 36px}.step::before{top:5px}
+.step::after{top:24px;left:6px;right:auto;bottom:0;width:2px;height:auto;background:#2a2a2a}.step:last-child{padding-bottom:0}}
