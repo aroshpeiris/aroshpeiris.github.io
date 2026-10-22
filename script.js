@@ -38,7 +38,7 @@ const rc=[...$$('.rcard')];
 const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target,c=v.parentNode;
  if(e.isIntersecting){if(!v.dataset.manual)v.play().catch(()=>{})}else v.pause()}),{threshold:.35});
 rc.forEach(c=>{const v=document.createElement('video');
- v.src=c.dataset.video;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.setAttribute('muted','');v.setAttribute('playsinline','');
+ v.poster=c.dataset.video.replace(/\.mp4$/,'.jpg');v.src=c.dataset.video;v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.setAttribute('muted','');v.setAttribute('playsinline','');
  c.insertBefore(v,c.firstChild);
  c.querySelector('.rtag').textContent=nm(c.href)+' Reel';
  c.style.backgroundImage="url('"+c.dataset.video.replace(/\.mp4.*/,'.jpg')+"'),linear-gradient(160deg,#FFD60A,#3a3000 55%,#141414)";c.style.backgroundSize='cover';c.style.backgroundPosition='center';
