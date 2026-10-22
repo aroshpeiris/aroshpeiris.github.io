@@ -250,3 +250,35 @@ h2.big{margin-bottom:28px}
 @media(max-width:800px){.steps{grid-template-columns:1fr;gap:0}
 .step{padding:0 0 30px 36px}.step::before{top:5px}
 .step::after{top:24px;left:6px;right:auto;bottom:0;width:2px;height:auto;background:#2a2a2a}.step:last-child{padding-bottom:0}}
+
+/* ===== GLASS EFFECT ===== */
+:root{--bl:18px}
+body::before,body::after{content:"";position:fixed;border-radius:50%;pointer-events:none;z-index:-1;filter:blur(110px)}
+body::before{width:560px;height:560px;left:-160px;top:12%;background:rgba(255,214,10,.3);animation:gdrift 18s ease-in-out infinite alternate}
+body::after{width:520px;height:520px;right:-140px;bottom:4%;background:rgba(255,140,10,.24);animation:gdrift 22s ease-in-out infinite alternate-reverse}
+@keyframes gdrift{to{transform:translate(120px,-90px) scale(1.2)}}
+.nav,.panel,.pill,.btn2,.fl,.filters button,.card,.srv a,.step,.form input,.form textarea,.socials a,.rtag,.wa,#skills .skill i{
+ background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.04));
+ -webkit-backdrop-filter:blur(var(--bl)) saturate(150%);backdrop-filter:blur(var(--bl)) saturate(150%);
+ border:1px solid rgba(255,255,255,.16);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 18px 44px rgba(0,0,0,.32)}
+.nav{background:linear-gradient(135deg,rgba(40,40,40,.6),rgba(15,15,15,.45))}
+.panel{background:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px) 0 0/26px 26px,linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.025))}
+.card{padding:10px;border-radius:28px}.card .thumb{border-radius:20px}.cinfo{padding:14px 8px 6px}
+.srv a{margin-bottom:12px;border-radius:22px;padding:28px 26px}
+.srv a:last-child{border-bottom:1px solid rgba(255,255,255,.16)}
+.step{padding:56px 22px 24px;border-radius:24px}.step::before{top:24px;left:22px}.step::after{display:none}
+#skills .skill i{background:linear-gradient(135deg,rgba(255,214,10,.28),rgba(255,214,10,.06));border:1px solid rgba(255,214,10,.55)}
+.form input,.form textarea{background:rgba(255,255,255,.07)}
+.socials a{border-radius:50px}
+.rcard{border:1px solid rgba(255,255,255,.2)}
+.rtag,.rpp{box-shadow:none}
+.wa{background:linear-gradient(135deg,rgba(255,214,10,.3),rgba(255,214,10,.1));color:var(--y)}
+.filters button:hover,.filters button.active,.btn2:hover{background:var(--y);color:var(--d);border-color:var(--y)}
+@media(max-width:800px){:root{--bl:12px}
+.card{padding:8px;border-radius:22px}.card .thumb{border-radius:16px}
+.srv a{padding:22px 18px;margin-bottom:10px}
+.steps{gap:12px}.step,.step:last-child{padding:52px 20px 22px}.step::before{top:22px;left:20px}.step::after{display:none}
+body::before{width:380px;height:380px}body::after{width:340px;height:340px}}
+.rcard video{border-radius:inherit}
+.rcard{isolation:isolate;-webkit-mask-image:-webkit-radial-gradient(white,black)}
