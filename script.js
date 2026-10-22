@@ -71,4 +71,11 @@ addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientse
  const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.offsetWidth>0);if(!vis.length)return;
  let g=0;while(sets[0].scrollWidth<m.clientWidth&&g++<8)vis.forEach(i=>sets[0].appendChild(i.cloneNode()));
  sets[1].innerHTML=sets[0].innerHTML;
- m.querySelector('.track').style.animationDuration=Math.max(24,sets[0].scrollWidth/45)+'s'});
+ m.querySelector('.track').style.animationDuration=Math.max(40,sets[0].scrollWidth/28)+'s'});
+
+// Intro: logo animation, then the curtain lifts and the hero animates in (same on mobile + desktop)
+(function(){const it=$('#intro');if(!it)return;document.body.style.overflow='hidden';
+ const done=()=>{if(document.body.classList.contains('ready'))return;it.classList.add('out');document.body.classList.add('ready');document.body.style.overflow='';setTimeout(()=>it.classList.add('gone'),1000)};
+ const go=()=>setTimeout(done,1500);
+ document.readyState==='complete'?go():addEventListener('load',go);
+ setTimeout(done,4000)})();
