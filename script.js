@@ -53,4 +53,5 @@ addEventListener('load',()=>rc.forEach(c=>{const v=c.querySelector('video');if(v
 addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientsec .set');if(!m||sets.length<2)return;
  const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.offsetWidth>0);if(!vis.length)return;
  let g=0;while(sets[0].scrollWidth<m.clientWidth&&g++<8)vis.forEach(i=>sets[0].appendChild(i.cloneNode()));
- sets[1].innerHTML=sets[0].innerHTML});
+ sets[1].innerHTML=sets[0].innerHTML;
+ m.querySelector('.track').style.animationDuration=Math.max(8,sets[0].scrollWidth/150)+'s'});
