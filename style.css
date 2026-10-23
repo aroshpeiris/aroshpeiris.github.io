@@ -341,3 +341,26 @@ body::before{width:520px;height:520px}body::after{width:480px;height:480px}
 .in-bar i{display:block;height:100%;background:var(--y);transform:scaleX(0);transform-origin:left;animation:inBar 1.4s ease forwards}
 @keyframes inUp{to{transform:none}}@keyframes inBar{to{transform:scaleX(1)}}@keyframes inFail{to{visibility:hidden;pointer-events:none}}
 body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-play-state:paused}
+
+/* ===== v7: reels sides not black, How I Work cascade + travelling line ===== */
+.cf .rcard::after{background:rgba(0,0,0,.28)}
+.steps{position:relative;align-items:start;padding-top:10px}
+.step{--r:0deg;--ty:0px;--n:0}
+.step:nth-child(1){--r:-3deg;--n:0}.step:nth-child(2){--r:2.5deg;--ty:34px;--n:1}.step:nth-child(3){--r:-2deg;--n:2}.step:nth-child(4){--r:3deg;--ty:34px;--n:3}
+.steps .step{position:relative;z-index:1;opacity:0;transform:translateY(46px) rotate(var(--r));transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1),background .3s}
+.steps.in .step{opacity:1;transform:translateY(var(--ty)) rotate(var(--r));transition-delay:calc(var(--n)*.3s)}
+.steps.in .step:hover{transform:translateY(calc(var(--ty) - 8px)) rotate(0deg);transition-delay:0s}
+.steps::before{content:"";position:absolute;z-index:0;left:4%;right:4%;top:calc(50% + 17px);height:2px;background:linear-gradient(90deg,transparent,var(--y) 14%,var(--y) 86%,transparent);box-shadow:0 0 14px rgba(255,214,10,.55);transform:scaleX(0);transform-origin:left;transition:transform 1.8s cubic-bezier(.4,0,.2,1) .2s}
+.steps.in::before{transform:scaleX(1)}
+.steps::after{content:"";position:absolute;z-index:0;top:calc(50% + 17px);left:4%;width:12px;height:12px;margin:-5px 0 0 -6px;border-radius:50%;background:var(--y);box-shadow:0 0 0 6px rgba(255,214,10,.2),0 0 22px var(--y);opacity:0}
+.steps.in::after{animation:travel 4.5s ease-in-out 2s infinite}
+@keyframes travel{0%{left:4%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:96%;opacity:0}}
+@keyframes travelY{0%{top:6%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:94%;opacity:0}}
+@media(max-width:800px){
+.steps{padding:0 0 0 26px;gap:16px}
+.steps::before{left:7px;right:auto;top:5%;bottom:5%;width:2px;height:auto;background:linear-gradient(180deg,transparent,var(--y) 12%,var(--y) 88%,transparent);transform:scaleY(0);transform-origin:top}
+.steps.in::before{transform:scaleY(1)}
+.steps::after{left:8px;top:5%;margin:0 0 0 -6px}
+.steps.in::after{animation:travelY 4.5s ease-in-out 2s infinite}
+.step:nth-child(1){--r:-2deg;--ty:0px}.step:nth-child(2){--r:2deg;--ty:0px}.step:nth-child(3){--r:-2deg;--ty:0px}.step:nth-child(4){--r:2deg;--ty:0px}
+.step:nth-child(even){margin-left:12px}.step:nth-child(odd){margin-right:12px}}
