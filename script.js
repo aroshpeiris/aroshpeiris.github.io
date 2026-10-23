@@ -37,7 +37,7 @@ const nm=u=>/instagram/.test(u)?'Instagram':/tiktok/.test(u)?'TikTok':/facebook|
 const cf=$('#cf'),rc=[...$$('.rcard')],dots=$('#cfDots');
 let act=Math.floor(rc.length/2),down=null,moved=false,inView=false,timer=null;
 rc.forEach((c,i)=>{const v=document.createElement('video');
- v.poster=c.dataset.video.replace(/\.mp4$/,'.jpg');v.src=c.dataset.video;v.muted=true;v.loop=true;v.playsInline=true;v.preload='metadata';
+ v.poster=c.dataset.video.replace(/\.mp4$/,'.jpg');v.src=c.dataset.video+'#t=0.1';v.addEventListener('loadedmetadata',()=>{if(v.paused&&v.currentTime<.05)v.currentTime=.1});v.muted=true;v.loop=true;v.playsInline=true;v.preload='metadata';
  v.setAttribute('muted','');v.setAttribute('playsinline','');c.insertBefore(v,c.firstChild);
  c.querySelector('.rtag').textContent=nm(c.href)+' Reel';c.querySelector('.rgo').textContent='Watch on '+nm(c.href);
  v.addEventListener('error',()=>c.classList.add('miss'));
@@ -51,7 +51,7 @@ function layout(){const w=rc[0].offsetWidth,step=w*(innerWidth<800?.8:.86);
  rc.forEach((c,i)=>{const d=i-act,a=Math.abs(d),v=c.querySelector('video');
   c.style.transform='translateX('+(d*step)+'px) scale('+(a===0?1:a===1?.82:.66)+')';
   c.style.zIndex=10-a;c.style.opacity=a===2?.6:1;
-  c.classList.toggle('on',a===0);c.classList.toggle('off',a>2);
+  v.preload=a<=1?'auto':'metadata';c.classList.toggle('on',a===0);c.classList.toggle('off',a>2);
   if(a===0&&inView&&!v.dataset.manual)v.play().catch(()=>{});else v.pause()});
  [...dots.children].forEach((b,i)=>b.classList.toggle('on',i===act))}
 function go(i,user){act=(i+rc.length)%rc.length;layout();if(user)start()}
@@ -79,3 +79,7 @@ addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientse
  const go=()=>setTimeout(done,1500);
  document.readyState==='complete'?go():addEventListener('load',go);
  setTimeout(done,4000)})();
+
+// How I Work: cards fade in one by one, yellow line travels
+const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');sio.unobserve(e.target)}}),{threshold:.25});
+$$('.steps').forEach(s=>sio.observe(s));
