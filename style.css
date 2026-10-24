@@ -82,7 +82,7 @@ h2.big::before{content:"";position:absolute;top:0;left:0;width:50px;height:4px;b
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:34px 26px}
 .card{display:block;animation:up .6s ease both}.card.hide{display:none}
 .thumb{position:relative;aspect-ratio:4/3;border-radius:22px;background-size:cover;background-position:center;overflow:hidden;transition:.5s}
-.thumb::after{content:"View \2197";position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,214,10,.92);color:var(--d);font-weight:700;font-size:1.1rem;opacity:0;transition:.4s}
+.thumb::after{content:"View Project";position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,214,10,.92);color:var(--d);font-weight:700;font-size:1.1rem;opacity:0;transition:.4s}
 .card:hover .thumb::after{opacity:1}.card:hover .thumb{transform:scale(.97) rotate(-1deg)}
 .cinfo{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:16px 4px}
 .cinfo h4{font-size:1.15rem}.cinfo p{font-size:.82rem;opacity:.6;font-weight:300;margin-top:2px}
@@ -364,3 +364,6 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 .steps.in::after{animation:travelY 4.5s ease-in-out 2s infinite}
 .step:nth-child(1){--r:-2deg;--ty:0px}.step:nth-child(2){--r:2deg;--ty:0px}.step:nth-child(3){--r:-2deg;--ty:0px}.step:nth-child(4){--r:2deg;--ty:0px}
 .step:nth-child(even){margin-left:12px}.step:nth-child(odd){margin-right:12px}}
+/* project cards: no emoji arrow, no stuck overlay on phones */
+.thumb::after{letter-spacing:.5px;font-size:1rem}
+@media(hover:none){.thumb::after{display:none}}
