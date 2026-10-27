@@ -367,3 +367,18 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 /* project cards: no emoji arrow, no stuck overlay on phones */
 .thumb::after{letter-spacing:.5px;font-size:1rem}
 @media(hover:none){.thumb::after{display:none}}
+
+/* ===== v8: reels from reels.js (sound icon, embeds) ===== */
+.cf{height:calc(var(--w)*2 + 56px)}
+.cf .rcard{aspect-ratio:1/2;background:#0b0b0b}
+.cf .rcard.miss{background:linear-gradient(160deg,#FFD60A,#3a3000 55%,#141414)}
+.cf .rcard.live{background:#fff}
+.cf .rcard.live .rplay,.cf .rcard.live .rtag{display:none}
+.cf .rcard.emb::before{display:none}
+.cf .rcard .rtag{display:block}
+.cf .rcard:not(.miss) .rtag{display:none}
+.rsnd{position:absolute;right:54px;bottom:12px;z-index:3;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.18);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center;padding:0}
+.rsnd svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.rsnd.loud{background:var(--y)}.rsnd.loud svg{stroke:var(--d)}
+.cf .rcard:not(.on) .rsnd{opacity:0;pointer-events:none}
+.cf .rcard a.rgo{text-decoration:none}
