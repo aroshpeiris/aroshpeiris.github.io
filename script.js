@@ -32,40 +32,62 @@ const pan=$('.panel');
 pan.addEventListener('mousemove',e=>{const r=pan.getBoundingClientRect();pan.style.setProperty('--mx',(e.clientX-r.left)/r.width-.5);pan.style.setProperty('--my',(e.clientY-r.top)/r.height-.5)});
 pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style.setProperty('--my',0)});
 
-// Reels: coverflow carousel (centre card plays, swipe / arrows / dots to change)
+// Reels: built from reels.js (own MP4 = autoplay + sound icon, otherwise the official Instagram / TikTok / Facebook player)
 const nm=u=>/instagram/.test(u)?'Instagram':/tiktok/.test(u)?'TikTok':/facebook|fb\.watch/.test(u)?'Facebook':'Reel';
-const cf=$('#cf'),rc=[...$$('.rcard')],dots=$('#cfDots');
-let act=Math.floor(rc.length/2),down=null,moved=false,inView=false,timer=null;
-rc.forEach((c,i)=>{const v=document.createElement('video');
- v.poster=c.dataset.video.replace(/\.mp4$/,'.jpg');v.src=c.dataset.video+'#t=0.1';v.addEventListener('loadedmetadata',()=>{if(v.paused&&v.currentTime<.05)v.currentTime=.1});v.muted=true;v.loop=true;v.playsInline=true;v.preload='metadata';
- v.setAttribute('muted','');v.setAttribute('playsinline','');c.insertBefore(v,c.firstChild);
- c.querySelector('.rtag').textContent=nm(c.href)+' Reel';c.querySelector('.rgo').textContent='Watch on '+nm(c.href);
- v.addEventListener('error',()=>c.classList.add('miss'));
- const b=document.createElement('button');b.className='rpp';b.setAttribute('aria-label','Pause or play');c.appendChild(b);
- b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();
-  if(v.paused){v.dataset.manual='';v.play()}else{v.dataset.manual=1;v.pause()}});
- v.addEventListener('pause',()=>c.classList.add('paused'));v.addEventListener('play',()=>c.classList.remove('paused'));
- const d=document.createElement('button');d.setAttribute('aria-label','Reel '+(i+1));d.onclick=()=>go(i,true);dots.appendChild(d);
- c.addEventListener('click',e=>{if(moved){e.preventDefault();return}if(i!==act){e.preventDefault();go(i,true)}})});
-function layout(){const w=rc[0].offsetWidth,step=w*(innerWidth<800?.8:.86);
- rc.forEach((c,i)=>{const d=i-act,a=Math.abs(d),v=c.querySelector('video');
+function embedUrl(u){let m;u=u||'';
+ if(m=u.match(/instagram\.com\/(reels?|p|tv)\/([\w-]+)/))return 'https://www.instagram.com/'+(m[1]==='reels'?'reel':m[1])+'/'+m[2]+'/embed';
+ if(m=u.match(/tiktok\.com\/.*\/video\/(\d+)/))return 'https://www.tiktok.com/player/v1/'+m[1]+'?autoplay=1&loop=1&music_info=0&description=0&rel=0';
+ if(/facebook\.com|fb\.watch/.test(u))return 'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false&autoplay=true&width=340&height=680';
+ return null}
+const ON='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>';
+const OFF='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>';
+const cf=$('#cf'),dots=$('#cfDots'),list=(typeof REELS!=='undefined'?REELS:[]),rc=[],firstNav=cf.querySelector('.cf-nav');
+let act=Math.floor(list.length/2),down=null,moved=false,inView=false,soundOn=false;
+function mk(cls,html,label){const b=document.createElement('button');b.className=cls;b.innerHTML=html||'';b.setAttribute('aria-label',label);return b}
+list.forEach((r,i)=>{const link=r.link||'',c=document.createElement('div');c.className='rcard';c.dataset.link=link;
+ const tag=document.createElement('span');tag.className='rtag';tag.textContent=nm(link)+' Reel';
+ const pl=document.createElement('span');pl.className='rplay';
+ if(r.video){c.dataset.type='v';
+  const v=document.createElement('video');v.src=r.video+'#t=0.1';v.poster=r.poster||r.video.replace(/\.mp4$/,'.jpg');
+  v.muted=true;v.loop=true;v.playsInline=true;v.preload='metadata';v.setAttribute('muted','');v.setAttribute('playsinline','');
+  v.addEventListener('loadedmetadata',()=>{if(v.paused&&v.currentTime<.05)v.currentTime=.1});
+  v.addEventListener('error',()=>c.classList.add('miss'));c.appendChild(v);
+  const sd=mk('rsnd',OFF,'Sound on or off'),pp=mk('rpp','','Pause or play'),go=document.createElement('a');
+  go.className='rgo';go.href=link;go.target='_blank';go.rel='noopener';go.textContent='Watch on '+nm(link);
+  const sync=()=>{sd.innerHTML=v.muted?OFF:ON;sd.classList.toggle('loud',!v.muted)};
+  sd.onclick=e=>{e.preventDefault();e.stopPropagation();v.muted=!v.muted;soundOn=!v.muted;sync();if(!v.muted)v.play().catch(()=>{})};
+  pp.onclick=e=>{e.preventDefault();e.stopPropagation();if(v.paused){v.dataset.manual='';v.play()}else{v.dataset.manual=1;v.pause()}};
+  go.onclick=e=>e.stopPropagation();
+  v.addEventListener('pause',()=>c.classList.add('paused'));v.addEventListener('play',()=>c.classList.remove('paused'));
+  v.addEventListener('volumechange',sync);
+  c.append(tag,pl,go,sd,pp)}
+ else if(embedUrl(link)){c.dataset.type='e';c.classList.add('emb','miss');c.append(tag,pl)}
+ else{c.dataset.type='l';c.classList.add('miss');c.append(tag,pl)}
+ c.addEventListener('click',()=>{if(moved)return;if(i!==act)go2(i);else if(c.dataset.type==='l'&&link)window.open(link,'_blank','noopener')});
+ cf.insertBefore(c,firstNav);rc.push(c);
+ const d=document.createElement('button');d.setAttribute('aria-label','Reel '+(i+1));d.onclick=()=>go2(i);dots.appendChild(d)});
+function mount(c){let f=c.querySelector('iframe');if(!f){f=document.createElement('iframe');f.src=embedUrl(c.dataset.link);
+ f.setAttribute('allow','autoplay; encrypted-media; fullscreen');f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');f.title='Reel';
+ c.insertBefore(f,c.firstChild);c.classList.add('live')}
+ const s=c.clientWidth/340;f.style.transform='scale('+s+')';f.style.height=(c.clientHeight/s)+'px'}
+function unmount(c){const f=c.querySelector('iframe');if(f){f.remove();c.classList.remove('live')}}
+function layout(){if(!rc.length)return;const w=rc[0].offsetWidth,step=w*(innerWidth<800?.8:.86);
+ rc.forEach((c,i)=>{const d=i-act,a=Math.abs(d),t=c.dataset.type;
   c.style.transform='translateX('+(d*step)+'px) scale('+(a===0?1:a===1?.82:.66)+')';
-  c.style.zIndex=10-a;c.style.opacity=a===2?.6:1;
-  v.preload=a<=1?'auto':'metadata';c.classList.toggle('on',a===0);c.classList.toggle('off',a>2);
-  if(a===0&&inView&&!v.dataset.manual)v.play().catch(()=>{});else v.pause()});
+  c.style.zIndex=10-a;c.style.opacity=a===2?.6:1;c.classList.toggle('on',a===0);c.classList.toggle('off',a>2);
+  if(t==='v'){const v=c.querySelector('video');v.preload=a<=1?'auto':'metadata';
+   if(a===0&&inView&&!v.dataset.manual){v.muted=!soundOn;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})})}else v.pause()}
+  else if(t==='e'){a===0&&inView?mount(c):unmount(c)}});
  [...dots.children].forEach((b,i)=>b.classList.toggle('on',i===act))}
-function go(i,user){act=(i+rc.length)%rc.length;layout();if(user)start()}
-function start(){clearInterval(timer);timer=setInterval(()=>{if(inView&&!document.hidden)go(act+1)},6000)}
+function go2(i){act=(i+rc.length)%rc.length;layout()}
 cf.addEventListener('dragstart',e=>e.preventDefault());
 cf.addEventListener('pointerdown',e=>{down=e.clientX;moved=false});
 addEventListener('pointerup',e=>{if(down===null)return;const dx=e.clientX-down;down=null;
- if(Math.abs(dx)>40){moved=true;go(act+(dx<0?1:-1),true);setTimeout(()=>moved=false,80)}});
+ if(Math.abs(dx)>40){moved=true;go2(act+(dx<0?1:-1));setTimeout(()=>moved=false,80)}});
 addEventListener('pointercancel',()=>down=null);
-$('.cf-nav.prev').onclick=()=>go(act-1,true);$('.cf-nav.next').onclick=()=>go(act+1,true);
+cf.querySelector('.cf-nav.prev').onclick=()=>go2(act-1);cf.querySelector('.cf-nav.next').onclick=()=>go2(act+1);
 new IntersectionObserver(es=>{inView=es[0].isIntersecting;layout()},{threshold:.35}).observe(cf);
-addEventListener('resize',layout);
-addEventListener('load',()=>{rc.forEach(c=>{const v=c.querySelector('video');if(v.error||v.networkState===3)c.classList.add('miss')});layout()});
-layout();start();
+addEventListener('resize',layout);layout();
 // Few logos? Repeat them so the loop has no big gaps
 addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientsec .set');if(!m||sets.length<2)return;
  const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.offsetWidth>0);if(!vis.length)return;
