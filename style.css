@@ -400,3 +400,12 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 
 .hdesc b{color:var(--y);font-weight:600}
 .hdesc{max-width:440px}
+
+/* ===== v10: reel embeds cropped to the video, 9:16 cards ===== */
+.cf{height:calc(var(--w)*16/9 + 56px)}
+.cf .rcard{aspect-ratio:9/16}
+.cf .rcard.live{background:#000}
+.rcard iframe{transition:opacity .5s}
+.cf .rcard.emb .rgo{top:12px;bottom:auto;left:12px}
+.cf .rcard.emb:not(.live) .rgo{display:none}
+@media(max-width:800px){.cf .rcard.emb .rgo{padding:7px 12px}}
