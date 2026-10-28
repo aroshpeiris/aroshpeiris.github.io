@@ -62,15 +62,19 @@ list.forEach((r,i)=>{const link=r.link||'',c=document.createElement('div');c.cla
   v.addEventListener('pause',()=>c.classList.add('paused'));v.addEventListener('play',()=>c.classList.remove('paused'));
   v.addEventListener('volumechange',sync);
   c.append(tag,pl,ti,go,sd,pp)}
- else if(embedUrl(link)){c.dataset.type='e';c.classList.add('emb','miss');c.append(tag,pl,ti)}
+ else if(embedUrl(link)){c.dataset.type='e';c.classList.add('emb','miss');
+  const og=document.createElement('a');og.className='rgo';og.href=link;og.target='_blank';og.rel='noopener';og.textContent='Open in '+nm(link);og.onclick=e=>e.stopPropagation();
+  c.append(tag,pl,ti,og)}
  else{c.dataset.type='l';c.classList.add('miss');c.append(tag,pl,ti)}
  c.addEventListener('click',()=>{if(moved)return;if(i!==act)go2(i);else if(c.dataset.type==='l'&&link)window.open(link,'_blank','noopener')});
  cf.insertBefore(c,firstNav);rc.push(c);
  const d=document.createElement('button');d.setAttribute('aria-label','Reel '+(i+1));d.onclick=()=>go2(i);dots.appendChild(d)});
-function mount(c){let f=c.querySelector('iframe');if(!f){f=document.createElement('iframe');f.src=embedUrl(c.dataset.link);
- f.setAttribute('allow','autoplay; encrypted-media; fullscreen');f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');f.title='Reel';
- c.insertBefore(f,c.firstChild);c.classList.add('live')}
- const s=c.clientWidth/340;f.style.transform='scale('+s+')';f.style.height=(c.clientHeight/s)+'px'}
+function mount(c){let f=c.querySelector('iframe');const ig=/instagram\.com\/reels?\//.test(c.dataset.link);
+ if(!f){f=document.createElement('iframe');f.src=embedUrl(c.dataset.link);
+  f.setAttribute('allow','autoplay; encrypted-media; fullscreen');f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');f.title='Reel';
+  f.style.opacity=0;f.onload=()=>{f.style.opacity=1;c.classList.add('live')};c.insertBefore(f,c.firstChild)}
+ if(ig){const s=c.clientWidth/239;f.style.height='620px';f.style.transform='translate('+(-50.5*s)+'px,'+(-54*s)+'px) scale('+s+')'}
+ else{const s=c.clientWidth/340;f.style.transform='scale('+s+')';f.style.height=(c.clientHeight/s)+'px'}}
 function unmount(c){const f=c.querySelector('iframe');if(f){f.remove();c.classList.remove('live')}}
 function layout(){if(!rc.length)return;const w=rc[0].offsetWidth,step=w*(innerWidth<800?.8:.86);
  rc.forEach((c,i)=>{const d=i-act,a=Math.abs(d),t=c.dataset.type;
