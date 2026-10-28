@@ -382,3 +382,21 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 .rsnd.loud{background:var(--y)}.rsnd.loud svg{stroke:var(--d)}
 .cf .rcard:not(.on) .rsnd{opacity:0;pointer-events:none}
 .cf .rcard a.rgo{text-decoration:none}
+
+/* ===== v9: cleaner reels (2:3 cards, captions) ===== */
+.cf{height:calc(var(--w)*1.5 + 56px)}
+.cf .rcard{aspect-ratio:2/3}
+.cf-cap{text-align:center;max-width:560px;margin:14px auto 0;min-height:104px;padding:0 10px}
+.cf-cap .cap-tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--y);margin-bottom:8px}
+.cf-cap h3{font-size:1.25rem;font-weight:700;margin-bottom:6px}
+.cf-cap p{font-size:.92rem;font-weight:300;opacity:.75;line-height:1.7}
+.cf-cap.in{animation:capIn .5s ease both}
+@keyframes capIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cf .rcard.miss .rtag{top:16px;left:16px;background:rgba(0,0,0,.55);color:var(--y);padding:5px 12px;border-radius:50px;font-size:.66rem;box-shadow:none;border:0}
+.rtitle{display:none;position:absolute;left:16px;right:16px;bottom:20px;z-index:3;font-size:1rem;font-weight:700;line-height:1.3;color:#fff}
+.cf .rcard.miss .rtitle{display:block}.cf .rcard.live .rtitle{display:none}
+.cf .rcard.miss .rplay{margin-top:-46px}
+@media(max-width:800px){.cf-cap{min-height:120px}.cf-cap h3{font-size:1.1rem}}
+
+.hdesc b{color:var(--y);font-weight:600}
+.hdesc{max-width:440px}
