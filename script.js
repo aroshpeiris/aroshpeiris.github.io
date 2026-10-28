@@ -73,7 +73,7 @@ function mount(c){let f=c.querySelector('iframe');const ig=/instagram\.com\/reel
  if(!f){f=document.createElement('iframe');f.src=embedUrl(c.dataset.link);
   f.setAttribute('allow','autoplay; encrypted-media; fullscreen');f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');f.title='Reel';
   f.style.opacity=0;f.onload=()=>{f.style.opacity=1;c.classList.add('live')};c.insertBefore(f,c.firstChild)}
- if(ig){const s=c.clientWidth/239;f.style.height='620px';f.style.transform='translate('+(-50.5*s)+'px,'+(-54*s)+'px) scale('+s+')'}
+ if(ig){const s=c.clientWidth/235;f.style.height='620px';f.style.transform='translate('+(-52.5*s)+'px,'+(-56*s)+'px) scale('+s+')'}
  else{const s=c.clientWidth/340;f.style.transform='scale('+s+')';f.style.height=(c.clientHeight/s)+'px'}}
 function unmount(c){const f=c.querySelector('iframe');if(f){f.remove();c.classList.remove('live')}}
 function layout(){if(!rc.length)return;const w=rc[0].offsetWidth,step=w*(innerWidth<800?.8:.86);
