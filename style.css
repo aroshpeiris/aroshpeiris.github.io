@@ -409,3 +409,15 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 .cf .rcard.emb .rgo{top:12px;bottom:auto;left:12px}
 .cf .rcard.emb:not(.live) .rgo{display:none}
 @media(max-width:800px){.cf .rcard.emb .rgo{padding:7px 12px}}
+
+/* ===== v11: no yellow on cards, blurred side cards, no edge lines ===== */
+.cf .rcard{background:#101010;outline:0;border:0}
+.cf .rcard.miss{background:linear-gradient(160deg,#2b2b2b,#161616 60%,#0b0b0b)}
+.cf .rcard.live{background:#000}
+.cf .rcard{transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .6s,box-shadow .6s,filter .6s}
+.cf .rcard:not(.on){filter:blur(2.5px)}
+.cf .rcard.miss .rplay{background:rgba(255,255,255,.2);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:none}
+.cf .rcard.miss .rplay::before{border-left-color:#fff}
+.cf .rcard.miss:hover .rplay{background:rgba(255,255,255,.32)}
+.cf .rcard.miss .rtag{color:#fff;background:rgba(255,255,255,.14)}
+.cf-glow{opacity:.5}
