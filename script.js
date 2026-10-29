@@ -116,3 +116,36 @@ addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientse
 // How I Work: cards fade in one by one, yellow line travels
 const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');sio.unobserve(e.target)}}),{threshold:.25});
 $$('.steps').forEach(s=>sio.observe(s));
+
+// Featured Work: 3 categories, each opens its own page inside the site
+const CAT=typeof CATS!=='undefined'?CATS:[],PRJ=typeof PROJECTS!=='undefined'?PROJECTS:{};
+const CI={video:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/>',design:'<path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/>',marketing:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>'};
+const catsEl=$('#cats'),wp=$('#wp');
+CAT.forEach(c=>{const n=(PRJ[c.id]||[]).length,a=document.createElement('a');a.className='cat';a.href='#work-'+c.id;
+ a.style.setProperty('--cover',c.cover?"url('"+c.cover+"')":'none');
+ a.innerHTML='<i class="ci"><svg viewBox="0 0 24 24">'+(CI[c.id]||CI.video)+'</svg></i><div><h3></h3><p></p><span class="cat-go"></span></div>';
+ a.querySelector('h3').textContent=c.title;a.querySelector('p').textContent=c.desc;
+ a.querySelector('.cat-go').textContent=n+(n===1?' project':' projects')+' · View';catsEl.appendChild(a)});
+function showMedia(html){box.innerHTML=html;modal.classList.add('open');document.body.style.overflow='hidden'}
+function openWork(id){const c=CAT.find(x=>x.id===id);if(!c)return;
+ $('#wpTag').textContent='Featured Work';$('#wpTitle').textContent=c.title;$('#wpDesc').textContent=c.desc;
+ const g=$('#wpGrid');g.innerHTML='';
+ (PRJ[id]||[]).forEach(p=>{const el=document.createElement('a');el.className='pj';el.href=p.link||'#';
+  el.innerHTML='<div class="pj-th"><span class="pj-play"></span></div><div class="pj-in"><h4></h4><p></p></div>';
+  el.querySelector('.pj-th').style.backgroundImage="url('"+(p.thumb||'')+"'),linear-gradient(135deg,#2a2a2a,#121212)";
+  if(!(p.video||id==='video'))el.querySelector('.pj-play').remove();
+  el.querySelector('h4').textContent=p.title||'';el.querySelector('p').textContent=p.desc||'';
+  if(p.video||p.image||!p.link)el.addEventListener('click',e=>{e.preventDefault();
+   if(p.video)showMedia('<video src="'+p.video+'" controls autoplay playsinline></video>');
+   else if(p.image)showMedia('<img src="'+p.image+'" alt="">')});
+  else{el.target='_blank';el.rel='noopener'}
+  g.appendChild(el)});
+ if(!g.children.length)g.innerHTML='<p class="wp-empty">Projects coming soon.</p>';
+ wp.classList.add('open');wp.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';wp.scrollTop=0}
+function closeWork(){if(!wp.classList.contains('open'))return;wp.classList.remove('open');wp.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+function route(){const h=location.hash;h.startsWith('#work-')?openWork(h.slice(6)):closeWork()}
+function backHome(){history.replaceState(null,'','#projects');closeWork()}
+$('#wpBack').onclick=backHome;addEventListener('hashchange',route);
+let escModal=false;addEventListener('keydown',e=>{if(e.key==='Escape')escModal=modal.classList.contains('open')},true);
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!escModal&&wp.classList.contains('open'))backHome()});
+route();
