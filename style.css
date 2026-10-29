@@ -421,3 +421,22 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 .cf .rcard.miss:hover .rplay{background:rgba(255,255,255,.32)}
 .cf .rcard.miss .rtag{color:#fff;background:rgba(255,255,255,.14)}
 .cf-glow{opacity:.5}
+
+/* ===== v12: bigger hero ===== */
+.panel{grid-template-columns:1fr 1fr;min-height:min(88vh,800px)}
+.hv{min-height:500px}
+.hv img{max-height:700px}
+@media(max-width:800px){.panel{grid-template-columns:1fr;min-height:0}.hv{min-height:400px}.hv img{max-height:450px}}
+
+/* ===== v13: side cards show the real reel (blurred), compact How I Work on phones ===== */
+.cf .rcard:not(.on) iframe{pointer-events:none}
+@media(max-width:800px){
+.steps{gap:12px;padding-left:22px}
+.step,.step:last-child{padding:16px 16px 16px 78px;border-radius:18px}
+.si{top:16px;left:16px;width:48px;height:48px;border-radius:14px}
+.si svg{width:22px;height:22px}
+.step b{font-size:1.05rem;margin-bottom:4px}
+.step p{font-size:.82rem;line-height:1.55}
+.step:nth-child(1){--r:-1deg}.step:nth-child(2){--r:1deg}.step:nth-child(3){--r:-1deg}.step:nth-child(4){--r:1deg}
+.step:nth-child(even){margin-left:8px}.step:nth-child(odd){margin-right:8px}
+}
