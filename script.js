@@ -36,8 +36,8 @@ pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style
 const nm=u=>/instagram/.test(u)?'Instagram':/tiktok/.test(u)?'TikTok':/facebook|fb\.watch/.test(u)?'Facebook':'Reel';
 function embedUrl(u){let m;u=u||'';
  if(m=u.match(/instagram\.com\/(reels?|p|tv)\/([\w-]+)/))return 'https://www.instagram.com/'+(m[1]==='reels'?'reel':m[1])+'/'+m[2]+'/embed';
- if(m=u.match(/tiktok\.com\/.*\/video\/(\d+)/))return 'https://www.tiktok.com/player/v1/'+m[1]+'?autoplay=1&loop=1&music_info=0&description=0&rel=0';
- if(/facebook\.com|fb\.watch/.test(u))return 'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false&autoplay=true&width=340&height=680';
+ if(m=u.match(/tiktok\.com\/.*\/video\/(\d+)/))return 'https://www.tiktok.com/player/v1/'+m[1]+'?autoplay=0&loop=1&music_info=0&description=0&rel=0';
+ if(/facebook\.com|fb\.watch/.test(u))return 'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false&width=340&height=680';
  return null}
 const ON='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>';
 const OFF='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>';
@@ -82,7 +82,9 @@ function layout(){if(!rc.length)return;const w=rc[0].offsetWidth,step=w*(innerWi
   c.style.zIndex=10-a;c.style.opacity=a===2?.6:1;c.classList.toggle('on',a===0);c.classList.toggle('off',a>2);
   if(t==='v'){const v=c.querySelector('video');v.preload=a<=1?'auto':'metadata';
    if(a===0&&inView&&!v.dataset.manual){v.muted=!soundOn;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})})}else v.pause()}
-  else if(t==='e'){a===0&&inView?mount(c):unmount(c)}});
+  else if(t==='e'){const was=c.dataset.act==='1';c.dataset.act=a===0?'1':'0';
+   if(was&&a!==0)unmount(c);              // reel stops when you swipe away
+   a<=(innerWidth<800?1:2)&&inView?mount(c):unmount(c)}});
  [...dots.children].forEach((b,i)=>b.classList.toggle('on',i===act));caption()}
 let lastCap=-1;const cap=$('#cfCap');
 function caption(){if(!cap||lastCap===act||!list[act])return;lastCap=act;const r=list[act];
