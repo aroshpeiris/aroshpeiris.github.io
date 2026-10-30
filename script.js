@@ -149,3 +149,29 @@ $('#wpBack').onclick=backHome;addEventListener('hashchange',route);
 let escModal=false;addEventListener('keydown',e=>{if(e.key==='Escape')escModal=modal.classList.contains('open')},true);
 addEventListener('keydown',e=>{if(e.key==='Escape'&&!escModal&&wp.classList.contains('open'))backHome()});
 route();
+
+// Mobile menu (hamburger): all sections + quick contact links
+(function(){const nav=$('.nav');if(!nav)return;
+ const L=[['About','#aboutme'],['Reels','#reels'],['Services','#services'],['Work','#projects'],['Skills','#skills'],['Contact','#contact']];
+ const b=document.createElement('button');b.className='burger';b.type='button';b.setAttribute('aria-label','Menu');b.setAttribute('aria-expanded','false');b.innerHTML='<span></span><span></span>';
+ nav.appendChild(b);
+ const m=document.createElement('div');m.className='mmenu';
+ m.innerHTML='<div class="mm-links">'+L.map(l=>'<a href="'+l[1]+'">'+l[0]+'</a>').join('')+'</div><div class="mm-soc"><a href="https://wa.me/94713135026" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/chanaka_arosh" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/in/arosh-peiris-531b35323/" target="_blank" rel="noopener">LinkedIn</a></div>';
+ document.body.appendChild(m);
+ const set=o=>{m.classList.toggle('open',o);b.classList.toggle('open',o);b.setAttribute('aria-expanded',o);document.body.classList.toggle('menu-open',o);document.body.style.overflow=o?'hidden':''};
+ b.onclick=()=>set(!m.classList.contains('open'));
+ m.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+ addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
+ addEventListener('resize',()=>{if(innerWidth>800)set(false)})})();
+
+// Mobile section tabs: appear after the hero, highlight the current section, smooth jump on tap
+(function(){const bar=$('#tabs');if(!bar)return;const strip=bar.querySelector('.tabs-in'),as=[...bar.querySelectorAll('a')],
+ secs=as.map(a=>a.dataset.t==='top'?$('#top'):$('#'+a.dataset.t));let cur=-1,tk=false;
+ function spy(){tk=false;bar.classList.toggle('show',scrollY>220);let n=0;
+  secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<=190)n=i});
+  if(n===cur)return;cur=n;as.forEach((a,i)=>a.classList.toggle('on',i===n));
+  const a=as[n];strip.scrollTo({left:a.offsetLeft-(strip.clientWidth-a.offsetWidth)/2,behavior:'smooth'})}
+ addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(spy)}},{passive:true});addEventListener('resize',spy);spy();
+ as.forEach((a,i)=>a.addEventListener('click',e=>{e.preventDefault();const s=secs[i];if(!s)return;
+  const pt=parseFloat(getComputedStyle(s).paddingTop)||0;
+  scrollTo({top:a.dataset.t==='top'?0:Math.max(0,s.getBoundingClientRect().top+scrollY+pt-128),behavior:'smooth'})}))})();
