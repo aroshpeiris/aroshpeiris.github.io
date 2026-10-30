@@ -482,3 +482,79 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 
 /* work page: fully solid background so the home page never shows through */
 .wp{background:#080808}
+
+/* ===== mobile UX pack: menu, tap targets, readable text, compact cards ===== */
+html{-webkit-tap-highlight-color:transparent}
+section[id],#showreel{scroll-margin-top:84px}
+.burger,.mmenu{display:none}
+@media(max-width:800px){
+/* menu */
+.nav{gap:8px;padding:6px 6px 6px 18px}
+.logo{padding:10px 0}
+.burger{display:grid;place-content:center;gap:6px;flex:none;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);cursor:pointer;padding:0}
+.burger span{display:block;width:18px;height:2px;border-radius:2px;background:#fff;transition:transform .3s}
+.burger.open span:nth-child(1){transform:translateY(4px) rotate(45deg)}.burger.open span:nth-child(2){transform:translateY(-4px) rotate(-45deg)}
+.mmenu{display:flex;position:fixed;inset:0;z-index:1450;flex-direction:column;justify-content:center;padding:96px 26px 40px;background:rgba(8,8,8,.97);opacity:0;visibility:hidden;transform:translateY(-14px);transition:opacity .3s,transform .3s,visibility 0s .3s}
+.mmenu.open{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .3s}
+.mm-links a{display:flex;align-items:center;justify-content:space-between;padding:17px 4px;font-size:1.6rem;font-weight:700;border-bottom:1px solid rgba(255,255,255,.1)}
+.mm-links a::after{content:"";width:10px;height:10px;border-top:2px solid var(--y);border-right:2px solid var(--y);transform:rotate(45deg)}
+.mm-soc{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.mm-soc a{padding:13px 20px;border-radius:50px;border:1px solid rgba(255,255,255,.22);font-size:.92rem;font-weight:500}
+.menu-open .wa{opacity:0;pointer-events:none}
+/* spacing + type */
+section{padding:56px 0}
+h2.big{font-size:clamp(1.7rem,7.2vw,2.2rem);margin-bottom:22px}
+.about p{font-size:1rem;line-height:1.8;opacity:.9}
+.me-photo{aspect-ratio:4/3;max-height:300px;box-shadow:8px 8px 0 var(--y);margin-right:8px}
+.hstats{font-size:.85rem}
+.cf-cap h3{font-size:1.2rem}.cf-cap p{font-size:.95rem;opacity:.85}
+.rcard .rtag{font-size:.72rem}
+.step p{font-size:.9rem;opacity:.85}
+/* tap targets */
+.btn,.btn2,.sbtn,.filters button,.wp-back{min-height:46px}
+.btn:active,.btn2:active,.sbtn:active,.cat:active,.pj:active,.srv a:active,.socials a:active{transform:scale(.97)}
+.cf-dots{gap:2px;margin-top:2px}
+.cf-dots button{width:28px;height:28px;background:none;position:relative;border-radius:0}
+.cf-dots button::before{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:8px;background:rgba(255,255,255,.3);transition:.3s}
+.cf-dots button.on{width:28px;background:none}.cf-dots button.on::before{width:22px;margin-left:-11px;background:var(--y)}
+.fnav{gap:2px 6px}.fnav a{padding:12px 10px}
+.socials a{padding:12px 20px}.socials{gap:10px}
+.mail{padding:10px 0;font-size:1.05rem}
+.form input,.form textarea{font-size:16px;padding:16px 18px}
+/* compact cards */
+.cat{min-height:190px;gap:24px;padding:20px;border-radius:22px}.ci{width:46px;height:46px}.cat-go{font-size:.85rem}
+.cats{gap:14px}
+.srv p{display:block;grid-column:1;font-size:.9rem;opacity:.8;margin-top:-6px}
+.srv i{grid-row:1/3;grid-column:2}
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 6px;justify-items:center}.skill{width:auto}
+.reel .mrow span{line-height:1.5}
+/* floating whatsapp + work page */
+.wa{width:52px;height:52px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom))}.wa svg{width:26px;height:26px}
+footer{padding-bottom:90px}
+.wp-in{padding:14px 16px 80px}
+}
+
+/* ===== v14: mobile section tabs + friendlier mobile UX ===== */
+.tabs{display:none}
+@media(max-width:800px){
+.tabs{display:block;position:fixed;top:78px;left:0;right:0;z-index:1450;transform:translateY(-160%);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s}
+.tabs.show{transform:none;opacity:1;pointer-events:auto}
+.tabs-in{display:flex;gap:8px;overflow-x:auto;padding:8px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;background:linear-gradient(135deg,rgba(40,40,40,.78),rgba(15,15,15,.7));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-block:1px solid rgba(255,255,255,.08)}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{flex:none;display:inline-flex;align-items:center;min-height:38px;padding:0 16px;border-radius:50px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.14);white-space:nowrap;transition:background .25s,color .25s,border-color .25s}
+.tabs a.on{background:var(--y);color:var(--d);border-color:var(--y)}
+section{padding:58px 0}
+.in-w{padding:0 18px}
+h2.big{font-size:clamp(1.7rem,8vw,2.2rem);margin-bottom:26px}
+.btn,.btn2{min-height:46px}
+.form input,.form textarea{font-size:16px}
+.cf-dots button{width:10px;height:10px;position:relative;margin:0 3px}
+.cf-dots button.on{width:26px}
+.cf-dots button::after{content:"";position:absolute;inset:-14px -7px}
+.srv a{grid-template-columns:1fr 34px;gap:6px 12px;padding:20px 18px}
+.srv p{display:block;grid-column:1;font-size:.85rem;line-height:1.55}
+.srv i{grid-row:1/3;grid-column:2;align-self:center}
+.wa{width:54px;height:54px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
+footer{padding-bottom:96px}
+}
+@media(max-width:800px){.mmenu{background:#080808}}
