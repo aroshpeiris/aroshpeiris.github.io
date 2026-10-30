@@ -479,3 +479,6 @@ body:not(.ready) .hl>*,body:not(.ready) .hv img,body:not(.ready) .fl{animation-p
 .wp{background:rgba(8,8,8,.98);-webkit-backdrop-filter:none;backdrop-filter:none}
 .wp-in{padding:16px 16px 70px}.wp-grid{grid-template-columns:1fr 1fr;gap:12px}
 .pj{padding:8px;border-radius:20px}.pj-th{border-radius:14px}.pj p{display:none}.pj h4{font-size:.95rem}.pj-play{width:44px;height:44px;margin:-22px 0 0 -22px}}
+
+/* work page: fully solid background so the home page never shows through */
+.wp{background:#080808}
