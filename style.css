@@ -1,78 +1,166 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Arosh Peiris | Video Editor, Graphic Designer &amp; Junior Marketer</title>
-<meta name="description" content="Arosh Peiris is a graphic designer at Light &amp; Shade, video editor and junior marketer from Colombo, Sri Lanka.">
-<meta name="theme-color" content="#FFD60A"><link rel="canonical" href="https://aroshpeiris.github.io/">
-<meta property="og:type" content="website"><meta property="og:title" content="Arosh Peiris | Video Editor &amp; Graphic Designer"><meta property="og:description" content="Premium video editing, graphic design and marketing content.">
-<meta property="og:url" content="https://aroshpeiris.github.io/"><meta property="og:image" content="https://aroshpeiris.github.io/og.jpg"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23FFD60A%22/><text x=%2250%22 y=%2273%22 font-size=%2272%22 font-weight=%22800%22 text-anchor=%22middle%22 font-family=%22Arial%22 fill=%22%230B0B0B%22>A</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head><body>
-<div id="intro"><div class="in-logo"><span style="--i:0">A</span><span style="--i:1">R</span><span style="--i:2">O</span><span style="--i:3">S</span><span style="--i:4">H</span><span style="--i:5" class="dot">.</span></div><div class="in-bar"><i></i></div></div>
-<div id="bar"></div>
-<div class="aurora" id="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-<nav class="nav"><a class="logo" href="#">AROSH<b>.</b></a><div class="nav-links"><a href="#aboutme">About</a><a href="#reels">Reels</a><a href="#services">Services</a><a href="#projects">Work</a><a href="#skills">Skills</a></div><a class="btn" href="#contact">Contact <i>→</i></a></nav>
-<div class="tabs" id="tabs"><a href="#aboutme">About</a><a href="#reels">Reels</a><a href="#services">Services</a><a href="#projects">Work</a><a href="#skills">Skills</a><a href="#contact">Contact</a></div>
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}}),{threshold:.08});
+$$('.reveal').forEach(el=>io.observe(el));
+function split(n,c){[...n.childNodes].forEach(k=>{if(k.nodeType===3){const f=document.createDocumentFragment();
+ k.textContent.split(/(\s+)/).forEach(t=>{if(!t.trim()){f.appendChild(document.createTextNode(t));return}
+ const w=document.createElement('span');w.className='w';const i=document.createElement('i');i.textContent=t;i.style.setProperty('--i',Math.min(c.n++,14));w.appendChild(i);f.appendChild(w)});k.replaceWith(f)}
+ else if(k.nodeType===1)split(k,c)})}
+const tio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');tio.unobserve(e.target)}}),{threshold:.2});
+$$('.tx').forEach(el=>{split(el,{n:0});tio.observe(el)});
+const words=['Video Editor','Graphic Designer','Junior Marketer'],typed=$('#typed');let w=0,c=0,del=false;
+(function t(){const s=words[w];typed.textContent=s.slice(0,c);
+ if(!del&&c<s.length){c++;setTimeout(t,90)}else if(!del){del=true;setTimeout(t,1400)}
+ else if(c>0){c--;setTimeout(t,45)}else{del=false;w=(w+1)%words.length;setTimeout(t,300)}})();
+let tk=false;addEventListener('scroll',()=>{if(tk)return;tk=true;requestAnimationFrame(()=>{$('#bar').style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%';tk=false})},{passive:true});
+// logos: PNG, SVG, WEBP or JPG all work (tries each extension automatically)
+const EXT=['png','svg','webp','jpg'];
+function nextExt(i){const k=(+i.dataset.k||0)+1;if(k<EXT.length){i.dataset.k=k;i.src=i.src.replace(/\.\w+(\?.*)?$/,'.'+EXT[k])}else i.style.display='none'}
+$$('.set img').forEach(i=>{i.addEventListener('error',()=>nextExt(i));if(i.complete&&!i.naturalWidth)nextExt(i)});
+const modal=$('#modal'),box=$('#mbox'),close=()=>{modal.classList.remove('open');box.innerHTML='';document.body.style.overflow=''};
+$$('[data-img]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();box.innerHTML='<img src="'+el.dataset.img+'" alt="">';modal.classList.add('open');document.body.style.overflow='hidden'}));
+$('#mclose').onclick=close;modal.onclick=e=>{if(e.target===modal)close()};addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+const tabs=$$('.filters button'),cards=$$('.card');
+tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('active'));b.classList.add('active');
+ cards.forEach(k=>k.classList.toggle('hide',!(b.dataset.f==='all'||k.dataset.cat===b.dataset.f)))}));
+const form=$('#form'),msg=$('#formMsg');
+form.addEventListener('submit',async e=>{e.preventDefault();msg.className='';msg.textContent='Sending...';
+ try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+ if(!r.ok)throw 0;msg.className='ok';msg.textContent='Thanks! Your message has been sent.';form.reset()}
+ catch{msg.className='err';msg.textContent='Something went wrong. Please WhatsApp me instead.'}});
 
-<header class="hero"><div class="in-w"><div class="panel">
-<div class="hl"><span class="pill">Colombo, Sri Lanka</span>
-<p class="hey">Hey, I'm</p><h1>Arosh <span>Peiris</span></h1><p class="typed-line">a <b id="typed"></b></p>
-<p class="hdesc">Turning raw ideas into <b>scroll-stopping</b> reels and designs that make brands impossible to ignore.</p>
-<div class="hero-btns"><a class="btn" href="#projects">View My Work <i>→</i></a><a class="btn2" href="#contact">Contact Me</a></div>
-<div class="hstats"><span>Video Editing</span><span>Graphic Design</span><span>Marketing</span></div></div>
-<div class="hv"><span class="fl f1">Pr</span><span class="fl f2">Ps</span><span class="fl f3">Ai</span><span class="fl f4">Cc</span><img src="hero.png" alt="Arosh Peiris" onload="this.parentNode.classList.add('has')" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='hero.PNG'}else{this.remove()}"></div>
-</div></div></header>
+const pan=$('.panel');
+pan.addEventListener('mousemove',e=>{const r=pan.getBoundingClientRect();pan.style.setProperty('--mx',(e.clientX-r.left)/r.width-.5);pan.style.setProperty('--my',(e.clientY-r.top)/r.height-.5)});
+pan.addEventListener('mouseleave',()=>{pan.style.setProperty('--mx',0);pan.style.setProperty('--my',0)});
 
-<section id="aboutme"><div class="in-w reveal"><div class="about"><div class="me-photo"></div><div>
-<h2 class="big tx">About Me</h2>
-<p>I'm a Graphic Designer, Video Editor, and Digital Marketer passionate about creating premium visuals and engaging content that helps brands stand out.</p>
-<p>From social media reels and promotional videos to brand designs and digital marketing content, I combine creativity with strategy to deliver work that captures attention and builds brand value.</p>
-<p>With hands-on industry experience and a Professional Certificate in Marketing from SLIM, I focus on creating impactful designs, compelling videos, and creative solutions tailored to each client's goals.</p>
-<p>Let's work together to bring your ideas to life.</p>
-<a class="btn" href="#contact" style="margin-top:10px">Let's Work Together <i>→</i></a></div></div>
-</div></section>
+// Reels: built from reels.js (own MP4 = autoplay + sound icon, otherwise the official Instagram / TikTok / Facebook player)
+const nm=u=>/instagram/.test(u)?'Instagram':/tiktok/.test(u)?'TikTok':/facebook|fb\.watch/.test(u)?'Facebook':'Reel';
+function embedUrl(u){let m;u=u||'';
+ if(m=u.match(/instagram\.com\/(reels?|p|tv)\/([\w-]+)/))return 'https://www.instagram.com/'+(m[1]==='reels'?'reel':m[1])+'/'+m[2]+'/embed';
+ if(m=u.match(/tiktok\.com\/.*\/video\/(\d+)/))return 'https://www.tiktok.com/player/v1/'+m[1]+'?autoplay=0&loop=1&music_info=0&description=0&rel=0';
+ if(/facebook\.com|fb\.watch/.test(u))return 'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false&width=340&height=680';
+ return null}
+const ON='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>';
+const OFF='<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>';
+const cf=$('#cf'),dots=$('#cfDots'),list=(typeof REELS!=='undefined'?REELS:[]),rc=[],firstNav=cf.querySelector('.cf-nav');
+let act=Math.floor(list.length/2),down=null,moved=false,inView=false,soundOn=false;
+function mk(cls,html,label){const b=document.createElement('button');b.className=cls;b.innerHTML=html||'';b.setAttribute('aria-label',label);return b}
+list.forEach((r,i)=>{const link=r.link||'',c=document.createElement('div');c.className='rcard';c.dataset.link=link;
+ const tag=document.createElement('span');tag.className='rtag';tag.textContent=nm(link)+' Reel';
+ const pl=document.createElement('span');pl.className='rplay';
+ const ti=document.createElement('span');ti.className='rtitle';ti.textContent=r.title||'';
+ if(r.video){c.dataset.type='v';
+  const v=document.createElement('video');v.src=r.video+'#t=0.1';v.poster=r.poster||r.video.replace(/\.mp4$/,'.jpg');
+  v.muted=true;v.loop=true;v.playsInline=true;v.preload='metadata';v.setAttribute('muted','');v.setAttribute('playsinline','');
+  v.addEventListener('loadedmetadata',()=>{if(v.paused&&v.currentTime<.05)v.currentTime=.1});
+  v.addEventListener('error',()=>c.classList.add('miss'));c.appendChild(v);
+  const sd=mk('rsnd',OFF,'Sound on or off'),pp=mk('rpp','','Pause or play'),go=document.createElement('a');
+  go.className='rgo';go.href=link;go.target='_blank';go.rel='noopener';go.textContent='Watch on '+nm(link);
+  const sync=()=>{sd.innerHTML=v.muted?OFF:ON;sd.classList.toggle('loud',!v.muted)};
+  sd.onclick=e=>{e.preventDefault();e.stopPropagation();v.muted=!v.muted;soundOn=!v.muted;sync();if(!v.muted)v.play().catch(()=>{})};
+  pp.onclick=e=>{e.preventDefault();e.stopPropagation();if(v.paused){v.dataset.manual='';v.play()}else{v.dataset.manual=1;v.pause()}};
+  go.onclick=e=>e.stopPropagation();
+  v.addEventListener('pause',()=>c.classList.add('paused'));v.addEventListener('play',()=>c.classList.remove('paused'));
+  v.addEventListener('volumechange',sync);
+  c.append(tag,pl,ti,go,sd,pp)}
+ else if(embedUrl(link)){c.dataset.type='e';c.classList.add('emb','miss');
+  const og=document.createElement('a');og.className='rgo';og.href=link;og.target='_blank';og.rel='noopener';og.textContent='Open in '+nm(link);og.onclick=e=>e.stopPropagation();
+  c.append(tag,pl,ti,og)}
+ else{c.dataset.type='l';c.classList.add('miss');c.append(tag,pl,ti)}
+ c.addEventListener('click',()=>{if(moved)return;if(i!==act)go2(i);else if(c.dataset.type==='l'&&link)window.open(link,'_blank','noopener')});
+ cf.insertBefore(c,firstNav);rc.push(c);
+ const d=document.createElement('button');d.setAttribute('aria-label','Reel '+(i+1));d.onclick=()=>go2(i);dots.appendChild(d)});
+function mount(c){let f=c.querySelector('iframe');const ig=/instagram\.com\/reels?\//.test(c.dataset.link);
+ if(!f){f=document.createElement('iframe');f.src=embedUrl(c.dataset.link);
+  f.setAttribute('allow','autoplay; encrypted-media; fullscreen');f.setAttribute('allowfullscreen','');f.setAttribute('scrolling','no');f.title='Reel';
+  f.style.opacity=0;f.onload=()=>{f.style.opacity=1;c.classList.add('live')};c.insertBefore(f,c.firstChild)}
+ if(ig){const s=c.clientWidth/235;f.style.height='620px';f.style.transform='translate('+(-52.5*s)+'px,'+(-56*s)+'px) scale('+s+')'}
+ else{const s=c.clientWidth/340;f.style.transform='scale('+s+')';f.style.height=(c.clientHeight/s)+'px'}}
+function unmount(c){const f=c.querySelector('iframe');if(f){f.remove();c.classList.remove('live')}}
+function layout(){if(!rc.length)return;const w=rc[0].offsetWidth,step=w*(innerWidth<800?.8:.86);
+ rc.forEach((c,i)=>{const d=i-act,a=Math.abs(d),t=c.dataset.type;
+  c.style.transform='translateX('+(d*step)+'px) scale('+(a===0?1:a===1?.82:.66)+')';
+  c.style.zIndex=10-a;c.style.opacity=a===2?.6:1;c.classList.toggle('on',a===0);c.classList.toggle('off',a>2);
+  if(t==='v'){const v=c.querySelector('video');v.preload=a<=1?'auto':'metadata';
+   if(a===0&&inView&&!v.dataset.manual){v.muted=!soundOn;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})})}else v.pause()}
+  else if(t==='e'){const was=c.dataset.act==='1';c.dataset.act=a===0?'1':'0';
+   if(was&&a!==0)unmount(c);              // reel stops when you swipe away
+   a<=(innerWidth<800?1:2)&&inView?mount(c):unmount(c)}});
+ [...dots.children].forEach((b,i)=>b.classList.toggle('on',i===act));caption()}
+let lastCap=-1;const cap=$('#cfCap');
+function caption(){if(!cap||lastCap===act||!list[act])return;lastCap=act;const r=list[act];
+ cap.querySelector('.cap-tag').textContent=nm(r.link||'');cap.querySelector('h3').textContent=r.title||'';cap.querySelector('p').textContent=r.desc||'';
+ cap.classList.remove('in');void cap.offsetWidth;cap.classList.add('in')}
+function go2(i){act=(i+rc.length)%rc.length;layout()}
+cf.addEventListener('dragstart',e=>e.preventDefault());
+cf.addEventListener('pointerdown',e=>{down=e.clientX;moved=false});
+addEventListener('pointerup',e=>{if(down===null)return;const dx=e.clientX-down;down=null;
+ if(Math.abs(dx)>40){moved=true;go2(act+(dx<0?1:-1));setTimeout(()=>moved=false,80)}});
+addEventListener('pointercancel',()=>down=null);
+cf.querySelector('.cf-nav.prev').onclick=()=>go2(act-1);cf.querySelector('.cf-nav.next').onclick=()=>go2(act+1);
+new IntersectionObserver(es=>{inView=es[0].isIntersecting;layout()},{threshold:.35}).observe(cf);
+addEventListener('resize',layout);layout();
+// Few logos? Repeat them so the loop has no big gaps
+addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientsec .set');if(!m||sets.length<2)return;
+ const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.offsetWidth>0);if(!vis.length)return;
+ let g=0;while(sets[0].scrollWidth<m.clientWidth&&g++<8)vis.forEach(i=>sets[0].appendChild(i.cloneNode()));
+ sets[1].innerHTML=sets[0].innerHTML;
+ m.querySelector('.track').style.animationDuration=Math.max(40,sets[0].scrollWidth/28)+'s'});
 
-<section id="reels" style="padding-top:0"><div class="in-w reveal"><h2 class="big tx">Recently Edited Reels</h2>
-<!-- reels wenas karanna: reels.js file eka witharak edit karanna -->
-<div class="cf" id="cf"><div class="cf-glow"></div><button class="cf-nav prev" aria-label="Previous reel"></button><button class="cf-nav next" aria-label="Next reel"></button></div><div class="cf-cap" id="cfCap"><span class="cap-tag"></span><h3></h3><p></p></div>
-<div class="cf-dots" id="cfDots"></div></div></section>
+// Intro: logo animation, then the curtain lifts and the hero animates in (same on mobile + desktop)
+(function(){const it=$('#intro');if(!it)return;document.body.style.overflow='hidden';
+ const done=()=>{if(document.body.classList.contains('ready'))return;it.classList.add('out');document.body.classList.add('ready');document.body.style.overflow='';setTimeout(()=>it.classList.add('gone'),1000)};
+ const go=()=>setTimeout(done,1500);
+ document.readyState==='complete'?go():addEventListener('load',go);
+ setTimeout(done,4000)})();
 
-<section class="clientsec"><div class="in-w reveal"><h2 class="big tx">Trusted by Brands I've Helped</h2><div class="marquee"><div class="track"><div class="set"><img src="logos/client1.png" alt="Client 1"><img src="logos/client2.png" alt="Client 2"><img src="logos/client3.png" alt="Client 3"><img src="logos/client4.png" alt="Client 4"><img src="logos/client5.png" alt="Client 5"></div><div class="set" aria-hidden="true"><img src="logos/client1.png" alt="Client 1"><img src="logos/client2.png" alt="Client 2"><img src="logos/client3.png" alt="Client 3"><img src="logos/client4.png" alt="Client 4"><img src="logos/client5.png" alt="Client 5"></div></div></div></div></section>
+// How I Work: cards fade in one by one, yellow line travels
+const sio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');sio.unobserve(e.target)}}),{threshold:.25});
+$$('.steps').forEach(s=>sio.observe(s));
 
-<section id="services" style="padding-top:40px"><div class="in-w reveal"><h2 class="big tx">Services</h2><div class="srv"><a href="#contact"><h3>Video Editing &amp; Reels</h3><p>Reels, ads, promos and cinematic edits that hold attention.</p><i>→</i></a><a href="#contact"><h3>Graphic Design</h3><p>Posts, logos and brand visuals that stand out.</p><i>→</i></a><a href="#contact"><h3>Digital Marketing</h3><p>Direct and digital marketing support to grow your brand online.</p><i>→</i></a><a href="#contact"><h3>Social Media Content</h3><p>Creative content and campaigns made to grow your brand.</p><i>→</i></a></div></div></section>
+// Featured Work: 3 categories, each opens its own page inside the site
+const CAT=typeof CATS!=='undefined'?CATS:[],PRJ=typeof PROJECTS!=='undefined'?PROJECTS:{};
+const CI={video:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/>',design:'<path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/>',marketing:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>'};
+const catsEl=$('#cats'),wp=$('#wp');
+CAT.forEach(c=>{const n=(PRJ[c.id]||[]).length,a=document.createElement('a');a.className='cat';a.href='#work-'+c.id;
+ a.style.setProperty('--cover',c.cover?"url('"+c.cover+"')":'none');
+ a.innerHTML='<i class="ci"><svg viewBox="0 0 24 24">'+(CI[c.id]||CI.video)+'</svg></i><div><h3></h3><p></p><span class="cat-go"></span></div>';
+ a.querySelector('h3').textContent=c.title;a.querySelector('p').textContent=c.desc;
+ a.querySelector('.cat-go').textContent=n+(n===1?' project':' projects')+' · View';catsEl.appendChild(a)});
+function showMedia(html){box.innerHTML=html;modal.classList.add('open');document.body.style.overflow='hidden'}
+function openWork(id){const c=CAT.find(x=>x.id===id);if(!c)return;
+ $('#wpTag').textContent='Featured Work';$('#wpTitle').textContent=c.title;$('#wpDesc').textContent=c.desc;
+ const g=$('#wpGrid');g.innerHTML='';
+ (PRJ[id]||[]).forEach(p=>{const el=document.createElement('a');el.className='pj';el.href=p.link||'#';
+  el.innerHTML='<div class="pj-th"><span class="pj-play"></span></div><div class="pj-in"><h4></h4><p></p></div>';
+  el.querySelector('.pj-th').style.backgroundImage="url('"+(p.thumb||'')+"'),linear-gradient(135deg,#2a2a2a,#121212)";
+  if(!(p.video||id==='video'))el.querySelector('.pj-play').remove();
+  el.querySelector('h4').textContent=p.title||'';el.querySelector('p').textContent=p.desc||'';
+  if(p.video||p.image||!p.link)el.addEventListener('click',e=>{e.preventDefault();
+   if(p.video)showMedia('<video src="'+p.video+'" controls autoplay playsinline></video>');
+   else if(p.image)showMedia('<img src="'+p.image+'" alt="">')});
+  else{el.target='_blank';el.rel='noopener'}
+  g.appendChild(el)});
+ if(!g.children.length)g.innerHTML='<p class="wp-empty">Projects coming soon.</p>';
+ wp.classList.add('open');wp.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';wp.scrollTop=0}
+function closeWork(){if(!wp.classList.contains('open'))return;wp.classList.remove('open');wp.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+function route(){const h=location.hash;h.startsWith('#work-')?openWork(h.slice(6)):closeWork()}
+function backHome(){history.replaceState(null,'','#projects');closeWork()}
+$('#wpBack').onclick=backHome;addEventListener('hashchange',route);
+let escModal=false;addEventListener('keydown',e=>{if(e.key==='Escape')escModal=modal.classList.contains('open')},true);
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!escModal&&wp.classList.contains('open'))backHome()});
+route();
 
-<section id="process" style="padding-top:0"><div class="in-w reveal"><h2 class="big tx">How I Work</h2><div class="steps"><div class="step"><i class="si"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.3A8 8 0 1 1 21 12z"/></svg></i><b>Brief</b><p>You share your idea, goals and any references you like.</p></div><div class="step"><i class="si"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></i><b>Plan</b><p>I plan the concept, style and content before I start.</p></div><div class="step"><i class="si"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg></i><b>Create</b><p>I edit and design, then share a draft for your feedback.</p></div><div class="step"><i class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/></svg></i><b>Deliver</b><p>After revisions, you get the final files in the formats you need.</p></div></div></div></section>
-
-<section id="projects" style="padding-top:0"><div class="in-w reveal"><h2 class="big tx">Featured Work</h2>
-<!-- cards wenas karanna: projects.js eka edit karanna -->
-<div class="cats" id="cats"></div></div></section>
-
-<section id="skills"><div class="in-w reveal"><h2 class="big tx">Skills &amp; Tools</h2><div class="skills"><div class="skill"><i>Pr</i><small>Premiere Pro</small></div><div class="skill"><i>Ps</i><small>Photoshop</small></div><div class="skill"><i>Ai</i><small>Illustrator</small></div><div class="skill"><i>Cc</i><small>CapCut</small></div><div class="skill"><i>Dm</i><small>Digital Marketing</small></div></div></div></section>
-
-<section class="reel" id="showreel"><div class="blob b1"></div><div class="blob b2"></div><div class="in-w" style="position:relative;z-index:2"><h2 class="big tx">Showreel</h2></div>
-<div class="mrow"><span>REELS • EDITS • DESIGNS • </span><span>REELS • EDITS • DESIGNS • </span></div>
-<div class="mrow rev out"><span>WATCH MY WORK • WATCH MY WORK • </span><span>WATCH MY WORK • WATCH MY WORK • </span></div>
-<div class="in-w" style="position:relative;z-index:2"><p class="sub">Watch my latest edits, reels and designs on my social media.</p>
-<div class="sbtns"><a class="sbtn" href="https://www.instagram.com/chanaka_arosh" target="_blank" rel="noopener">Instagram →</a><a class="sbtn" href="https://www.facebook.com/share/1DnDnbj6gX/" target="_blank" rel="noopener">Facebook →</a><a class="sbtn" href="https://www.tiktok.com/@chanaka_arosh" target="_blank" rel="noopener">TikTok →</a></div></div></section>
-
-<section class="contact" id="contact"><div class="in-w reveal"><h2 class="big tx">Let's Work Together</h2>
-<a class="mail" href="mailto:aroshchanaka7@gmail.com">aroshchanaka7@gmail.com</a>
-<form class="form" id="form" action="https://formspree.io/f/mkjoazpn" method="POST">
-<input type="text" name="name" placeholder="Your name" required data-gramm="false" data-enable-grammarly="false">
-<input type="email" name="email" placeholder="Your email" required data-gramm="false" data-enable-grammarly="false">
-<textarea name="message" placeholder="Tell me about your project..." required data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false"></textarea>
-<input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
-<button class="btn" type="submit">Send Message <i>→</i></button><p id="formMsg"></p></form>
-<div class="socials"><a href="https://wa.me/94713135026" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.linkedin.com/in/arosh-peiris-531b35323/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.instagram.com/chanaka_arosh" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/1DnDnbj6gX/" target="_blank" rel="noopener">Facebook</a><a href="https://www.tiktok.com/@chanaka_arosh" target="_blank" rel="noopener">TikTok</a><a href="https://www.behance.net/chanakaarosh2" target="_blank" rel="noopener">Behance</a></div></div></section>
-
-<footer><div class="fnav"><a href="#aboutme">About</a><a href="#skills">Skills</a><a href="#services">Services</a><a href="#projects">Work</a><a href="#contact">Contact</a></div><p>© 2026 Arosh Peiris. All rights reserved.</p></footer>
-<div class="wp" id="wp" aria-hidden="true"><div class="wp-in">
-<div class="wp-bar"><button class="wp-back" id="wpBack" type="button"><i></i>Back to Home</button></div>
-<div class="wp-head"><p class="cap-tag" id="wpTag"></p><h2 id="wpTitle"></h2><p id="wpDesc"></p></div>
-<div class="wp-grid" id="wpGrid"></div></div></div>
-<div class="modal" id="modal"><button class="mclose" id="mclose" aria-label="Close">×</button><div id="mbox"></div></div>
-<a class="wa" href="https://wa.me/94713135026?text=Hi%20Arosh%2C%20I%20saw%20your%20portfolio!" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
-<script src="reels.js"></script>
-<script src="projects.js"></script>
-<script src="script.js"></script></body></html>
+// Section tabs: highlight the section you are reading (desktop nav + phone tab strip)
+const tabsEl=$('#tabs'),spyLinks=[...$$('.tabs a,.nav-links a')];
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;
+ spyLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
+ const t=tabsEl&&tabsEl.querySelector('a.on');
+ if(t)tabsEl.scrollTo({left:t.offsetLeft-(tabsEl.clientWidth-t.clientWidth)/2,behavior:'smooth'})}),{rootMargin:'-45% 0px -50% 0px'});
+['aboutme','reels','services','projects','skills','contact'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
+// phone tab strip hides while scrolling down, shows again when scrolling up
+let lastY=scrollY,tt=false;
+addEventListener('scroll',()=>{if(tt||!tabsEl)return;tt=true;requestAnimationFrame(()=>{const y=scrollY,d=y-lastY;
+ if(Math.abs(d)>8){tabsEl.classList.toggle('hide',d>0&&y>240);lastY=y}tt=false})},{passive:true});
+// desktop: soft spotlight follows the mouse
+if(matchMedia('(pointer:fine)').matches){const au=$('#aurora');
+ addEventListener('mousemove',e=>{au.style.setProperty('--sx',e.clientX+'px');au.style.setProperty('--sy',e.clientY+'px')},{passive:true})}
