@@ -11,7 +11,7 @@ const words=['Video Editor','Graphic Designer','Junior Marketer'],typed=$('#type
 (function t(){const s=words[w];typed.textContent=s.slice(0,c);
  if(!del&&c<s.length){c++;setTimeout(t,90)}else if(!del){del=true;setTimeout(t,1400)}
  else if(c>0){c--;setTimeout(t,45)}else{del=false;w=(w+1)%words.length;setTimeout(t,300)}})();
-let tk=false;addEventListener('scroll',()=>{if(tk)return;tk=true;requestAnimationFrame(()=>{$('#bar').style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%';tk=false})},{passive:true});
+
 // logos: PNG, SVG, WEBP or JPG all work (tries each extension automatically)
 const EXT=['png','svg','webp','jpg'];
 function nextExt(i){const k=(+i.dataset.k||0)+1;if(k<EXT.length){i.dataset.k=k;i.src=i.src.replace(/\.\w+(\?.*)?$/,'.'+EXT[k])}else i.style.display='none'}
@@ -164,3 +164,43 @@ addEventListener('scroll',()=>{if(tt||!tabsEl)return;tt=true;requestAnimationFra
 // desktop: soft spotlight follows the mouse
 if(matchMedia('(pointer:fine)').matches){const au=$('#aurora');
  addEventListener('mousemove',e=>{au.style.setProperty('--sx',e.clientX+'px');au.style.setProperty('--sy',e.clientY+'px')},{passive:true})}
+
+// ---- Hero live background: floating yellow embers that react to the mouse ----
+(function(){const cv=$('#heroFx'),hero=$('.hero');if(!cv||!hero||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ const ctx=cv.getContext('2d');let W=0,H=0,P=[],mx=-999,my=-999,run=false,raf=0;
+ function size(){const d=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);
+  const n=W<800?36:84;P=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.7,vx:(Math.random()-.5)*.25,vy:-(Math.random()*.45+.12),a:Math.random()*.5+.25,t:Math.random()*6}))}
+ function step(){if(!run)return;ctx.clearRect(0,0,W,H);
+  for(const p of P){p.t+=.02;p.x+=p.vx+Math.sin(p.t)*.15;p.y+=p.vy;
+   const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);if(d<150&&d>0){p.x+=dx/d*(150-d)*.025;p.y+=dy/d*(150-d)*.025}
+   if(p.y<-12){p.y=H+12;p.x=Math.random()*W}if(p.x<-12)p.x=W+12;if(p.x>W+12)p.x=-12;
+   const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*6);g.addColorStop(0,'rgba(255,232,100,'+p.a+')');g.addColorStop(1,'rgba(255,214,10,0)');
+   ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*6,0,6.2832);ctx.fill()}
+  if(W>=800){ctx.lineWidth=.6;for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+   if(d<120){ctx.strokeStyle='rgba(255,214,10,'+(.17*(1-d/120)).toFixed(3)+')';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}}
+  raf=requestAnimationFrame(step)}
+ size();addEventListener('resize',size);
+ hero.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top});
+ hero.addEventListener('mouseleave',()=>{mx=my=-999});
+ new IntersectionObserver(es=>{const v=es[0].isIntersecting;if(v&&!run){run=true;step()}else if(!v){run=false;cancelAnimationFrame(raf)}}).observe(hero);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){run=false;cancelAnimationFrame(raf)}else if(!run){run=true;step()}})})();
+
+// ---- Flow: sections ease in/out while scrolling, big word slides sideways ----
+(function(){const secs=[...$$('section')],still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ secs.forEach(s=>{const h=s.querySelector('h2');if(h)s.dataset.w=h.textContent.replace(/\s+/g,' ').trim().toUpperCase().slice(0,16)});
+ let fr=false;
+ function flow(){fr=false;const vh=innerHeight;
+  secs.forEach(s=>{const r=s.getBoundingClientRect();if(r.bottom<-250||r.top>vh+250)return;
+   const n=Math.max(-1,Math.min(1,(r.top+r.height/2-vh/2)/(vh*.9)));
+   s.querySelectorAll(':scope>.in-w').forEach(w=>{w.style.translate='0 '+(n*30).toFixed(1)+'px';w.style.scale=(1-Math.abs(n)*.03).toFixed(4)});
+   s.style.setProperty('--wx',(n*-12).toFixed(1)+'%')})}
+ if(!still)addEventListener('scroll',()=>{if(!fr){fr=true;requestAnimationFrame(flow)}},{passive:true});flow()})();
+
+// ---- Cursor: glowing ring that follows the mouse, grows on links / buttons ----
+(function(){const cur=$('#cur');if(!cur||!matchMedia('(pointer:fine)').matches)return;
+ let x=0,y=0,cx=0,cy=0,go=false;
+ addEventListener('mousemove',e=>{x=e.clientX;y=e.clientY;if(!go){go=true;cx=x;cy=y;cur.classList.add('on');loop()}
+  cur.classList.toggle('hot',!!e.target.closest('a,button,.rcard,.cat,.pj,input,textarea,.cf-nav'))},{passive:true});
+ addEventListener('mousedown',()=>cur.classList.add('dn'));addEventListener('mouseup',()=>cur.classList.remove('dn'));
+ document.addEventListener('mouseleave',()=>cur.classList.remove('on'));document.addEventListener('mouseenter',()=>cur.classList.add('on'));
+ function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;cur.style.transform='translate3d('+cx+'px,'+cy+'px,0)';requestAnimationFrame(loop)}})();
