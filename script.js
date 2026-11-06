@@ -156,7 +156,7 @@ const spy=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)retur
  spyLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
  const t=tabsEl&&tabsEl.querySelector('a.on');
  if(t)tabsEl.scrollTo({left:t.offsetLeft-(tabsEl.clientWidth-t.clientWidth)/2,behavior:'smooth'})}),{rootMargin:'-45% 0px -50% 0px'});
-['aboutme','reels','services','projects','skills','contact'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
+['aboutme','reels','services','projects','skills','play','contact'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
 // phone tab strip hides while scrolling down, shows again when scrolling up
 let lastY=scrollY,tt=false;
 addEventListener('scroll',()=>{if(tt||!tabsEl)return;tt=true;requestAnimationFrame(()=>{const y=scrollY,d=y-lastY;
