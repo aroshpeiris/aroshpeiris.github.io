@@ -56,8 +56,14 @@
 <div class="sbtns"><a class="sbtn" href="https://www.instagram.com/chanaka_arosh" target="_blank" rel="noopener">Instagram →</a><a class="sbtn" href="https://www.facebook.com/share/1DnDnbj6gX/" target="_blank" rel="noopener">Facebook →</a><a class="sbtn" href="https://www.tiktok.com/@chanaka_arosh" target="_blank" rel="noopener">TikTok →</a></div></div></section>
 
 <section id="play"><div class="in-w reveal"><h2 class="big tx">Take a Break</h2>
-<p class="play-sub">No network? No problem. Jump over the clapperboards and film reels, and beat the high score.</p>
-<div class="game"><canvas id="runGame" aria-label="Runner mini game: press space or tap to jump"></canvas><div class="game-hint">Space / ↑ / tap to jump</div></div></div></section>
+<p class="play-sub">No network? No problem. Jump over cameras, clapperboards and film reels, and beat your best score.</p>
+<div class="game" id="game"><canvas id="runGame" aria-label="AROSH Creative Runner mini game"></canvas>
+<div class="g-hud" aria-live="off"><span>SCORE <b id="gScore">00000</b></span><span>BEST <b id="gBest">00000</b></span></div>
+<div class="g-ov" id="gReady"><h3>AROSH CREATIVE RUNNER</h3><p>Jump over the creative obstacles and beat your best score.</p>
+<button class="btn g-btn" id="gPlay" type="button">Play <i class="ic-play"></i></button><small>Tap / Space / &uarr; to jump</small></div>
+<div class="g-ov" id="gOver" hidden><h3>GAME OVER</h3><div class="g-res"><span>SCORE <b id="gFinal">00000</b></span><span>BEST <b id="gBest2">00000</b></span></div>
+<small id="gNew" class="g-new" hidden>New best!</small><p>Great creativity never stops. Let&rsquo;s create something together.</p>
+<div class="g-act"><button class="btn g-btn" id="gRestart" type="button">Restart <i>&#8635;</i></button><a class="btn2" href="#contact">Contact Me</a></div></div></div></div></div></section>
 
 <section class="contact" id="contact"><div class="in-w reveal"><h2 class="big tx">Let's Work Together</h2>
 <a class="mail" href="mailto:aroshchanaka7@gmail.com">aroshchanaka7@gmail.com</a>
