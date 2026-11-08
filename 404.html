@@ -9,6 +9,12 @@
 .nf h2{font-size:clamp(1.3rem,3vw,2rem);margin:6px 0 8px}.nf p{opacity:.75;font-weight:300;margin:0 0 26px}.nf .game{margin:0 auto 28px;text-align:left}</style></head>
 <body><div class="nf"><h1>404</h1><h2>This page took a break.</h2>
 <p>The page you are looking for is not here, but you can play a quick game while you are at it.</p>
-<div class="game"><canvas id="runGame" aria-label="Runner mini game"></canvas><div class="game-hint">Space / ↑ / tap to jump</div></div>
+<div class="game" id="game"><canvas id="runGame" aria-label="AROSH Creative Runner mini game"></canvas>
+<div class="g-hud" aria-live="off"><span>SCORE <b id="gScore">00000</b></span><span>BEST <b id="gBest">00000</b></span></div>
+<div class="g-ov" id="gReady"><h3>AROSH CREATIVE RUNNER</h3><p>Jump over the creative obstacles and beat your best score.</p>
+<button class="btn g-btn" id="gPlay" type="button">Play <i class="ic-play"></i></button><small>Tap / Space / &uarr; to jump</small></div>
+<div class="g-ov" id="gOver" hidden><h3>GAME OVER</h3><div class="g-res"><span>SCORE <b id="gFinal">00000</b></span><span>BEST <b id="gBest2">00000</b></span></div>
+<small id="gNew" class="g-new" hidden>New best!</small><p>Great creativity never stops. Let&rsquo;s create something together.</p>
+<div class="g-act"><button class="btn g-btn" id="gRestart" type="button">Restart <i>&#8635;</i></button><a class="btn2" href="/#contact">Contact Me</a></div></div></div>
 <a class="btn" href="/">Back to Home <i>→</i></a></div>
 <script src="/game.js"></script></body></html>
