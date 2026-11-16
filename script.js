@@ -78,8 +78,9 @@ function mount(c){let f=c.querySelector('iframe');const ig=/instagram\.com\/reel
 function unmount(c){const f=c.querySelector('iframe');if(f){f.remove();c.classList.remove('live')}}
 function layout(){if(!rc.length)return;const w=rc[0].offsetWidth,step=w*(innerWidth<800?.8:.86);
  rc.forEach((c,i)=>{const d=i-act,a=Math.abs(d),t=c.dataset.type;
-  c.style.transform='translateX('+(d*step)+'px) scale('+(a===0?1:a===1?.82:.66)+')';
-  c.style.zIndex=10-a;c.style.opacity=a===2?.6:1;c.classList.toggle('on',a===0);c.classList.toggle('off',a>2);
+  if(mob()){c.style.transform='';c.style.zIndex='';c.style.opacity='';c.classList.toggle('on',a===0);c.classList.remove('off')}
+  else{c.style.transform='translateX('+(d*step)+'px) scale('+(a===0?1:a===1?.82:.66)+')';
+  c.style.zIndex=10-a;c.style.opacity=a===2?.6:1;c.classList.toggle('on',a===0);c.classList.toggle('off',a>2)}
   if(t==='v'){const v=c.querySelector('video');v.preload=a<=1?'auto':'metadata';
    if(a===0&&inView&&!v.dataset.manual){v.muted=!soundOn;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})})}else v.pause()}
   else if(t==='e'){const was=c.dataset.act==='1';c.dataset.act=a===0?'1':'0';
@@ -90,15 +91,23 @@ let lastCap=-1;const cap=$('#cfCap');
 function caption(){if(!cap||lastCap===act||!list[act])return;lastCap=act;const r=list[act];
  cap.querySelector('.cap-tag').textContent=nm(r.link||'');cap.querySelector('h3').textContent=r.title||'';cap.querySelector('p').textContent=r.desc||'';
  cap.classList.remove('in');void cap.offsetWidth;cap.classList.add('in')}
-function go2(i){act=(i+rc.length)%rc.length;layout()}
+const mob=()=>innerWidth<800;
+function centerCard(smooth){const c=rc[act];if(!c)return;cf.scrollTo({left:c.offsetLeft-(cf.clientWidth-c.offsetWidth)/2,behavior:smooth?'smooth':'auto'})}
+function go2(i){act=(i+rc.length)%rc.length;layout();if(mob())centerCard(true)}
 cf.addEventListener('dragstart',e=>e.preventDefault());
-cf.addEventListener('pointerdown',e=>{down=e.clientX;moved=false});
+cf.addEventListener('pointerdown',e=>{if(mob())return;down=e.clientX;moved=false});
 addEventListener('pointerup',e=>{if(down===null)return;const dx=e.clientX-down;down=null;
  if(Math.abs(dx)>40){moved=true;go2(act+(dx<0?1:-1));setTimeout(()=>moved=false,80)}});
 addEventListener('pointercancel',()=>down=null);
 cf.querySelector('.cf-nav.prev').onclick=()=>go2(act-1);cf.querySelector('.cf-nav.next').onclick=()=>go2(act+1);
 new IntersectionObserver(es=>{inView=es[0].isIntersecting;layout()},{threshold:.35}).observe(cf);
 addEventListener('resize',layout);layout();
+let scr=0;cf.addEventListener('scroll',()=>{if(!mob()||scr)return;scr=requestAnimationFrame(()=>{scr=0;
+ const mid=cf.scrollLeft+cf.clientWidth/2;let best=act,bd=1e9;
+ rc.forEach((c,i)=>{const d=Math.abs(c.offsetLeft+c.offsetWidth/2-mid);if(d<bd){bd=d;best=i}});
+ if(best!==act){act=best;layout()}})},{passive:true});
+addEventListener('resize',()=>{if(mob())centerCard(false)});
+if(mob())requestAnimationFrame(()=>centerCard(false));
 // Few logos? Repeat them so the loop has no big gaps
 addEventListener('load',()=>{const m=$('.clientsec .marquee'),sets=$$('.clientsec .set');if(!m||sets.length<2)return;
  const vis=[...sets[0].querySelectorAll('img')].filter(i=>i.style.display!=='none'&&i.offsetWidth>0);if(!vis.length)return;
