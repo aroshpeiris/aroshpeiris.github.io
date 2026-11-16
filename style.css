@@ -605,3 +605,37 @@ section[data-w]::before{font-size:clamp(4rem,24vw,8rem)}
 .ic-play::before{content:"";margin-left:3px;border-left:11px solid var(--y);border-top:7px solid transparent;border-bottom:7px solid transparent}
 .g-ov .btn2{min-height:48px;padding:0 26px}
 @media(max-width:800px){#runGame{height:270px}.g-ov{gap:8px;padding:12px}.g-ov p{font-size:.8rem;line-height:1.45}.g-res{gap:16px;font-size:.8rem}.g-hud{font-size:.68rem;gap:12px;top:10px;right:12px}.g-ov .btn2{padding:0 20px}}
+
+/* ===== phones: reels = native swipe row (scroll-snap) - works even when the finger starts on the Instagram player ===== */
+@media(max-width:800px){
+.cf{--w:min(74vw,290px);display:flex;gap:14px;height:auto;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;touch-action:auto;
+ padding:22px calc(50% - var(--w)/2) 22px;margin:8px -20px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.cf::-webkit-scrollbar{display:none}
+.cf-glow{display:none}
+.cf .rcard{position:relative;top:auto;left:auto;margin:0;flex:0 0 var(--w);scroll-snap-align:center;scroll-snap-stop:always;transform:none!important;opacity:1!important}
+.cf .rcard:not(.on){filter:none}
+.cf .rcard.on{box-shadow:0 18px 44px rgba(0,0,0,.55)}
+}
+/* ===== game teaser card (the game itself lives in game.html) ===== */
+.pg{display:grid;grid-template-columns:1.05fr .95fr;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 24px 60px rgba(0,0,0,.4);transition:transform .4s,box-shadow .4s}
+.pg:hover{transform:translateY(-6px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 30px 70px rgba(255,214,10,.14)}
+.pg-scene{position:relative;min-height:260px;background:#0b0b0b;overflow:hidden}
+.pg-gr{position:absolute;left:0;right:0;bottom:64px;height:2px;background:var(--y)}
+.pg-gr::after{content:"";position:absolute;top:10px;left:0;right:-60px;height:2px;background:repeating-linear-gradient(90deg,var(--y) 0 14px,transparent 14px 46px);opacity:.55;animation:pgRun .9s linear infinite}
+@keyframes pgRun{to{transform:translateX(-46px)}}
+.pg-hero{position:absolute;left:14%;bottom:66px;width:38px;height:34px;border-radius:9px;background:var(--y);animation:pgJump 3.2s infinite}
+.pg-hero::before{content:"";position:absolute;left:14px;top:9px;border-left:14px solid #0b0b0b;border-top:8px solid transparent;border-bottom:8px solid transparent}
+@keyframes pgJump{0%,60%,90%,100%{transform:translateY(0)}67%{transform:translateY(-34px)}75%{transform:translateY(-56px)}83%{transform:translateY(-34px)}}
+.pg-ob{position:absolute;bottom:66px;left:105%;width:34px;height:34px;background:var(--y);animation:pgOb 3.2s linear infinite}
+.pg-ob::before{content:"";position:absolute;left:-2px;right:-2px;top:0;height:9px;background:repeating-linear-gradient(120deg,#0b0b0b 0 5px,var(--y) 5px 12px)}
+@keyframes pgOb{from{left:105%}to{left:-15%}}
+.pg-sp{position:absolute;width:13px;height:13px;border-radius:50%;background:var(--y);opacity:.9;animation:pgOb 3.2s linear infinite}
+.pg-sp.s1{bottom:150px;animation-delay:-.5s}.pg-sp.s2{bottom:160px;animation-delay:-.75s}.pg-sp.s3{bottom:150px;animation-delay:-1s}
+.pg-txt{padding:36px;display:flex;flex-direction:column;gap:12px;justify-content:center;align-items:flex-start}
+.pg-txt h3{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;line-height:1.15}
+.pg-txt p{font-weight:300;opacity:.8;line-height:1.7;font-size:.95rem}
+.pg-chips{display:flex;flex-wrap:wrap;gap:8px}.pg-chips span{font-size:.74rem;border:1px solid rgba(255,214,10,.45);color:var(--y);border-radius:30px;padding:5px 12px}
+.pg .btn{margin-top:6px}
+@media(max-width:800px){.pg{grid-template-columns:1fr}.pg-scene{min-height:190px}.pg-txt{padding:24px 20px}
+.pg-gr{bottom:44px}.pg-hero{bottom:46px}.pg-ob{bottom:46px}.pg-sp.s1,.pg-sp.s3{bottom:124px}.pg-sp.s2{bottom:134px}}
+@media(prefers-reduced-motion:reduce){.pg-hero,.pg-ob,.pg-sp,.pg-gr::after{animation:none}}
