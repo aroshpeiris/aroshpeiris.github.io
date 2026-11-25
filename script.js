@@ -165,7 +165,7 @@ const spy=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)retur
  spyLinks.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
  const t=tabsEl&&tabsEl.querySelector('a.on');
  if(t)tabsEl.scrollTo({left:t.offsetLeft-(tabsEl.clientWidth-t.clientWidth)/2,behavior:'smooth'})}),{rootMargin:'-45% 0px -50% 0px'});
-['aboutme','reels','services','projects','skills','play','contact'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
+['aboutme','reels','services','projects','articles','skills','play','contact'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
 // phone tab strip hides while scrolling down, shows again when scrolling up
 let lastY=scrollY,tt=false;
 addEventListener('scroll',()=>{if(tt||!tabsEl)return;tt=true;requestAnimationFrame(()=>{const y=scrollY,d=y-lastY;
@@ -213,3 +213,13 @@ if(matchMedia('(pointer:fine)').matches){const au=$('#aurora');
  addEventListener('mousedown',()=>cur.classList.add('dn'));addEventListener('mouseup',()=>cur.classList.remove('dn'));
  document.addEventListener('mouseleave',()=>cur.classList.remove('on'));document.addEventListener('mouseenter',()=>cur.classList.add('on'));
  function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;cur.style.transform='translate3d('+cx+'px,'+cy+'px,0)';requestAnimationFrame(loop)}})();
+
+// Articles: built from articles.js (hidden when the list is empty)
+(function(){const L=typeof ARTICLES!=='undefined'?ARTICLES:[],box=document.getElementById('arts'),sec=document.getElementById('articles');
+ if(!box||!sec)return;if(!L.length){sec.style.display='none';return}
+ L.forEach(a=>{const el=document.createElement('a');el.className='art';el.href=a.link||'#';
+  if(a.link&&a.link!=='#'){el.target='_blank';el.rel='noopener'}else el.addEventListener('click',e=>e.preventDefault());
+  el.innerHTML='<div class="art-th"><span class="art-tag"></span></div><div class="art-in"><small class="art-date"></small><h3></h3><p></p><span class="art-go">Read article</span></div>';
+  el.querySelector('.art-th').style.backgroundImage=(a.thumb?"url('"+a.thumb+"'),":'')+'linear-gradient(135deg,#2a2a2a,#121212)';
+  el.querySelector('.art-tag').textContent=a.tag||'Article';el.querySelector('.art-date').textContent=a.date||'';
+  el.querySelector('h3').textContent=a.title||'';el.querySelector('p').textContent=a.desc||'';box.appendChild(el)})})();
