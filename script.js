@@ -214,12 +214,17 @@ if(matchMedia('(pointer:fine)').matches){const au=$('#aurora');
  document.addEventListener('mouseleave',()=>cur.classList.remove('on'));document.addEventListener('mouseenter',()=>cur.classList.add('on'));
  function loop(){cx+=(x-cx)*.18;cy+=(y-cy)*.18;cur.style.transform='translate3d('+cx+'px,'+cy+'px,0)';requestAnimationFrame(loop)}})();
 
-// Articles: built from articles.js (hidden when the list is empty)
-(function(){const L=typeof ARTICLES!=='undefined'?ARTICLES:[],box=document.getElementById('arts'),sec=document.getElementById('articles');
- if(!box||!sec)return;if(!L.length){sec.style.display='none';return}
- L.forEach(a=>{const el=document.createElement('a');el.className='art';el.href=a.link||'#';
+// Articles: built from articles.js (filter chips, featured first card, hidden when empty)
+(function(){const L=typeof ARTICLES!=='undefined'?ARTICLES:[],box=$('#arts'),sec=$('#articles');if(!box||!sec)return;
+ if(!L.length){sec.style.display='none';return}
+ const tg=a=>a.tag||'Article',tags=['All',...new Set(L.map(tg))],bar=document.createElement('div');bar.className='art-chips';box.before(bar);
+ const chips=tags.length>2?tags.map(t=>{const b=document.createElement('button');b.type='button';b.textContent=t;b.onclick=()=>show(t);bar.appendChild(b);return b}):(bar.hidden=true,[]);
+ const cards=L.map(a=>{const el=document.createElement('a');el.className='art';el.href=a.link||'#';
   if(a.link&&a.link!=='#'){el.target='_blank';el.rel='noopener'}else el.addEventListener('click',e=>e.preventDefault());
-  el.innerHTML='<div class="art-th"><span class="art-tag"></span></div><div class="art-in"><small class="art-date"></small><h3></h3><p></p><span class="art-go">Read article</span></div>';
+  el.innerHTML='<div class="art-th"><span class="art-tag"></span></div><div class="art-in"><small class="art-meta"></small><h3></h3><p></p><span class="art-go">Read article</span></div>';
   el.querySelector('.art-th').style.backgroundImage=(a.thumb?"url('"+a.thumb+"'),":'')+'linear-gradient(135deg,#2a2a2a,#121212)';
-  el.querySelector('.art-tag').textContent=a.tag||'Article';el.querySelector('.art-date').textContent=a.date||'';
-  el.querySelector('h3').textContent=a.title||'';el.querySelector('p').textContent=a.desc||'';box.appendChild(el)})})();
+  el.querySelector('.art-tag').textContent=tg(a);el.querySelector('.art-meta').textContent=[a.date,a.read].filter(Boolean).join('  \u00B7  ');
+  el.querySelector('h3').textContent=a.title||'';el.querySelector('p').textContent=a.desc||'';box.appendChild(el);return el});
+ function show(f){cards.forEach((c,i)=>{c.classList.toggle('hide',f!=='All'&&tg(L[i])!==f);c.classList.remove('feat')});
+  if(f==='All'&&cards.length>2)cards[0].classList.add('feat');chips.forEach(b=>b.classList.toggle('on',b.textContent===f))}
+ show('All')})();
